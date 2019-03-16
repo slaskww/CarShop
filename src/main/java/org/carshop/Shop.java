@@ -7,11 +7,12 @@ public class Shop {
 
     public static void main(String[] args) {
 
+    MyGarage garage = new MyGarage();
 
-        List<Car> carList = new ArrayList<Car>();
+
 
         showTitle();
-        showMainMenu();
+      //  showMainMenu();
        // showListMenu();
        // showSortMenu();
        // showFilterMenu();
@@ -24,12 +25,7 @@ public class Shop {
        System.out.println("=======================");
    }
 
-   public static void showMainMenu(){
-       System.out.println("1 - dodaj nowy smochód");
-       System.out.println("2 - usuń samochód");
-       System.out.println("3 - wyświetl listę samochodów");
-       System.out.println();
-   }
+
 
 
    public static void showListMenu(){
