@@ -10,13 +10,14 @@ public class MyGarage {
     public MyGarage() {}
 
     public void addCar(){
-        carList.add(MenuUtil.newCar());
+        carList.add(CarUtil.newCar());
     }
 
-    public void removeCar(Car car){
-        carList.remove(car);
+    public void removeCar(){
+        carList.remove(CarUtil.removeCarMenu(carList));
     }
 
+    public void showCars() {CarUtil.showList(carList);}
 
 
 }

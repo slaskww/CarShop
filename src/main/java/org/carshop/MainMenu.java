@@ -1,11 +1,8 @@
 package org.carshop;
 
-import java.util.Scanner;
-
 public class MainMenu {
 
    private Integer choice  = 0;
-   private Car soldCar = null;
 
     public MainMenu() {}
 
@@ -14,28 +11,35 @@ public class MainMenu {
         return choice;
     }
 
-    public void showMainMenu(){
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("1 - dodaj nowy smochód");
-        System.out.println("2 - usuń samochód");
-        System.out.println("3 - wyświetl listę samochodów");
-        System.out.println("4 - zakończ");
-        this.choice =  input.nextInt();
-    }
-
 
     public  void executeMainMenu(MyGarage garage){
 
-        switch(choice){
+        choice = CarUtil.showMainMenu();
 
+        switch(choice){
             case 1 : garage.addCar();
                 break;
 
-            case 2 : garage.removeCar(soldCar);
+            case 2 : garage.removeCar();
                 break;
 
-            case 3 : MenuUtil.showCars(garage.carList);
+            case 3 : garage.showCars();
+                break;
+
+            case 4 : SortMenu.sortByChosen(garage.carList);
+                break;
+
+            case 5 :
+                System.out.println();
+                break;
+
+            case 6 :
+                System.out.println();
+                break;
+
+            case 0 :
+                System.out.println();
+                break;
 
             default:
                     System.out.println("Brak takiej opcji");
