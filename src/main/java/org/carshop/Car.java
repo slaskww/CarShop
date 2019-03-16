@@ -65,7 +65,7 @@ public class Car {
 //                carFeatures.liczbaDrzwi,
 //                carFeatures.Kolor);
 
-        return String.format("%10s %10f %10d %10d %10d %10s",make, price, year, milage, door, color );
+        return String.format("%-15s %-15.2f %-15d %-15d %-15d %-15s",make, price, year, milage, door, color );
 
     }
 }
