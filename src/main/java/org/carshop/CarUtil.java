@@ -3,6 +3,8 @@ package org.carshop;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class CarUtil {
 
@@ -40,19 +42,14 @@ public class CarUtil {
         input.nextLine();
         System.out.println("Podaj nazwę producenta: ");
         make = input.nextLine();
-
         System.out.println("Podaj cenę pojazdu: ");
         price = input.nextBigDecimal();
-
         System.out.println("Podaj rok produkcji: ");
         year = input.nextInt();
-
         System.out.println("Podaj przebieg (w km): ");
         mileage = input.nextInt();
-
         System.out.println("Podaj liczbe drzwi: ");
         door = input.nextInt();
-
         System.out.println("Podaj kolor pojazdu: ");
         color = input.next();
 
@@ -66,7 +63,6 @@ public class CarUtil {
             System.out.println("Lista jest pusta.");
             return null;
         }
-
         System.out.println("Podaj numer pojazdu, który usunąć z listy: ");
         System.out.println("------------------------------------------");
 
@@ -125,6 +121,88 @@ public class CarUtil {
         System.out.println("6 - kolorze karoserii");
 
         return input.nextInt();
+    }
+
+    public static String takeMakeToFilter(List<Car> list){
+
+        Set<String> makes  =  new TreeSet<String>();
+        for (Car car:  list) {
+            makes.add(car.getMake());
+        }
+
+        System.out.println("Podaj markę pojazdu:");
+        for (String s:  makes) {
+            System.out.println(s);
+        }
+
+        return input.nextLine();
+    }
+
+    public static int takeDoorToFilter(List<Car> list){
+
+        Set<Integer> prices  =  new TreeSet<Integer>();
+        for (Car car:  list) {
+            prices.add(car.getDoor());
+        }
+
+
+        System.out.println("Podaj liczbę drzwi:");
+        for (Integer s:  prices) {
+            System.out.println(s);
+        }
+        return input.nextInt();
+    }
+
+    public static String takeColorToFilter(List<Car> list){
+
+        Set<String> colors  =  new TreeSet<String>();
+        for (Car car:  list) {
+            colors.add(car.getColor());
+        }
+
+
+        System.out.println("Podaj kolor karoserii:");
+        for (String s:  colors) {
+            System.out.println(s);
+        }
+        return input.nextLine();
+    }
+
+    public static BigDecimal takePriceToFilter(List<Car> list){
+        System.out.println("Podaj maksymalną cenę");
+
+        BigDecimal maxPrice = input.nextBigDecimal();
+        if (maxPrice.compareTo(new BigDecimal(0))  < 0) {
+            System.out.println("Cena  nie może być ujemna");
+            return new BigDecimal(0);
+        }
+        return maxPrice;
+    }
+
+    public static Integer takeYearToFilter(List<Car> list){
+
+        Set<Integer> years  =  new TreeSet<Integer>();
+        for (Car car:  list) {
+            years.add(car.getYear());
+        }
+
+        System.out.println("Podaj liczbę drzwi:");
+        for (Integer s:  years) {
+            System.out.println(s);
+        }
+        return input.nextInt();
+    }
+
+    public static Integer takeMileageToFilter(List<Car> list){
+        System.out.println("Podaj maksymalny przebieg");
+
+        Integer maxmileage = input.nextInt();
+        if (maxmileage.compareTo(0) < 0) {
+            System.out.println("przebieg  nie może być ujemny");
+            return 0;
+        }
+        return maxmileage;
+
     }
 
 }

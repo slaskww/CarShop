@@ -29,8 +29,7 @@ public class MainMenu {
             case 4 : SortMenu.sortByChosen(garage.carList);
                 break;
 
-            case 5 :
-                System.out.println();
+            case 5 : FilterMenu.filterByChosen(garage.carList);
                 break;
 
             case 6 :
