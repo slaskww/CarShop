@@ -14,7 +14,7 @@ public class CarFilter {
 
         List<Car> filteredList = list
                 .stream()
-                .filter(car -> car.getMake() == makeToFilter)
+                .filter(car -> car.getMake().equals(makeToFilter))
                 .collect(Collectors.toList());
 
         CarUtil.showList(filteredList);
@@ -45,7 +45,7 @@ public class CarFilter {
 
         List<Car> filteredList = list
                 .stream()
-                .filter(car -> car.getMilage() == mileageToFilter)
+                .filter(car -> car.getMilage() < mileageToFilter)
                 .collect(Collectors.toList());
 
         CarUtil.showList(filteredList);
@@ -65,7 +65,7 @@ public class CarFilter {
 
         List<Car> filteredList = list
                 .stream()
-                .filter(car -> car.getColor() == colorToFilter)
+                .filter(car -> car.getColor().equals(colorToFilter))
                 .collect(Collectors.toList());
 
         CarUtil.showList(filteredList);

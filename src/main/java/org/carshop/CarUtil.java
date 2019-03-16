@@ -134,7 +134,7 @@ public class CarUtil {
         for (String s:  makes) {
             System.out.println(s);
         }
-
+        input.nextLine();
         return input.nextLine();
     }
 
@@ -144,7 +144,6 @@ public class CarUtil {
         for (Car car:  list) {
             prices.add(car.getDoor());
         }
-
 
         System.out.println("Podaj liczbę drzwi:");
         for (Integer s:  prices) {
@@ -165,6 +164,7 @@ public class CarUtil {
         for (String s:  colors) {
             System.out.println(s);
         }
+        input.nextLine();
         return input.nextLine();
     }
 
@@ -186,7 +186,7 @@ public class CarUtil {
             years.add(car.getYear());
         }
 
-        System.out.println("Podaj liczbę drzwi:");
+        System.out.println("Podaj rocznik:");
         for (Integer s:  years) {
             System.out.println(s);
         }
