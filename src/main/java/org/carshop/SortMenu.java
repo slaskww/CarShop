@@ -5,12 +5,11 @@ import java.util.List;
 
 public class SortMenu {
 
-    private static Integer choice  = 0;
-
     private SortMenu() {}
 
     public static void sortByChosen(List<Car> list){
 
+        int choice;
         choice =  CarUtil.showSortMenu();
 
         switch(choice){

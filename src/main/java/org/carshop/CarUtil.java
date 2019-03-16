@@ -115,4 +115,16 @@ public class CarUtil {
         return input.nextInt();
     }
 
+    public static int showFilterMenu(){
+        System.out.println("Przefiltruj listę po:");
+        System.out.println("1 - marce pojazdu");
+        System.out.println("2 - cenie pojazdu");
+        System.out.println("3 - roku produkcji");
+        System.out.println("4 - przebiegu");
+        System.out.println("5 - liczbie drzwi");
+        System.out.println("6 - kolorze karoserii");
+
+        return input.nextInt();
+    }
+
 }
