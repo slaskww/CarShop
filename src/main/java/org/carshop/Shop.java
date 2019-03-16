@@ -8,7 +8,7 @@ public class Shop {
         MyGarage garage = new MyGarage();
         MainMenu menu = new MainMenu();
 
-        while (menu.getChoice() != 4) {
+        while (menu.getChoice() != 9) {
             CarUtil.showTitle();
             menu.executeMainMenu(garage);
         }

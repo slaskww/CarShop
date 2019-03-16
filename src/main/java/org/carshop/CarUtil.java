@@ -28,9 +28,7 @@ public class CarUtil {
         System.out.println();
     }
 
-
     public static Car newCar(){
-
 
         String make;
         String color;
@@ -39,6 +37,7 @@ public class CarUtil {
         int year;
         int mileage;
 
+        input.nextLine();
         System.out.println("Podaj nazwę producenta: ");
         make = input.nextLine();
 
@@ -92,7 +91,7 @@ public class CarUtil {
         System.out.println("4 - sortuj listę");
         System.out.println("5 - filtruj listę");
         System.out.println("6 - filtruj i sortuj listę");
-        System.out.println("0 - zakończ program");
+        System.out.println("9 - zakończ program");
 
         return input.nextInt();
     }

@@ -37,7 +37,7 @@ public class MainMenu {
                 System.out.println();
                 break;
 
-            case 0 :
+            case 9 :
                 System.out.println();
                 break;
 
