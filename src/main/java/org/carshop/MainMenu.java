@@ -44,7 +44,8 @@ public class MainMenu {
 
             case 5 :
                 choice = CarUtil.showFilterMenuAndReturnChoice();
-                FilterMenu.filterByChosen(garage.carList, choice);
+                List<Car> filteredList = FilterMenu.filterByChosen(garage.carList, choice);
+                CarUtil.showList(filteredList);
                 break;
 
             case 6 :
@@ -54,7 +55,6 @@ public class MainMenu {
             case 7 :
                 System.out.println(CarProfit.getBalance());
                 CarUtil.showAccountHistory(CarProfit.getAccountHistory());
-              // System.out.println(CarUtil.getDate());
                 break;
 
             case 9 :
