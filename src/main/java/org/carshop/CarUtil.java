@@ -87,6 +87,7 @@ public class CarUtil {
         System.out.println("4 - sortuj listę");
         System.out.println("5 - filtruj listę");
         System.out.println("6 - filtruj i sortuj listę");
+        System.out.println("7 - sprawdź stan konta");
         System.out.println("9 - zakończ program");
 
         return input.nextInt();
@@ -204,22 +205,25 @@ public class CarUtil {
         return maxmileage;
     }
 
-    public static String getDate(){
-
-       // LocalDateTime today  = LocalDateTime.now();
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        return  String.valueOf(fmt);
+    public static String formatDate(LocalDateTime localTime){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return  localTime.format(formatter);
     }
 
-    public static void showAccountHistory(TreeMap<String,BigDecimal> accountHistory){
-        System.out.println("Historia rachunku :\n");
+    public static void showAccountHistory(List<AccountHistoryObject> accountHistory) {
 
-        for (Map.Entry<String,BigDecimal> entry: accountHistory.entrySet()) {
+        System.out.println("Historia rachunku:");
+        System.out.println("==================");
 
-            String key = entry.getKey();
-            BigDecimal value = entry.getValue();
-            System.out.printf(key +" $.2f", value);
+        if (accountHistory.size() == 0) {
+            System.out.println("Historia jest pusta\n");
+            return;
         }
+
+        for (AccountHistoryObject obj: accountHistory) {
+            System.out.println(obj);
+        }
+        System.out.println();
     }
 
 }

@@ -1,34 +1,29 @@
 package org.carshop;
 
-import sun.reflect.generics.tree.Tree;
-
 import java.math.BigDecimal;
-import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarProfit {
-    BigDecimal balance;
-    TreeMap<String,BigDecimal> accountHistory;
+    private static BigDecimal balance = new BigDecimal(0);
+    private static List<AccountHistoryObject> accountHistory =  new ArrayList<>();
 
 
-    public CarProfit(BigDecimal balance) {
-        this.balance = new BigDecimal(0);
-        accountHistory.put(CarUtil.getDate() ,new BigDecimal(0));
+    public CarProfit() {
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public static String getBalance() {
+         return "Stan konta: " + balance + " PLN\n";
     }
 
-    public void addProfit(BigDecimal profit) {
-        this.balance = balance.add(profit);
+    public static void editProfit(BigDecimal transfer) {
+        balance = balance.add(transfer);
+        accountHistory.add(new AccountHistoryObject(transfer));
     }
 
-    @Override
-    public String toString() {
-        return "Stan konta: " + balance + " PLN";
-    }
 
-    public void getAccountHistory(){
+
+    public static void getAccountHistory() {
         CarUtil.showAccountHistory(accountHistory);
     }
 

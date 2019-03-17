@@ -17,16 +17,17 @@ public class MyGarage {
         carList.add(new Car("czerwony", "Dacia", new BigDecimal(50000), 5, 2007, 230000));
     }
 
-    public void addCar(){
-        carList.add(CarUtil.newCar());
+    public void addCar(Car car){
+        carList.add(car);
+        BigDecimal costReducingBalance = new BigDecimal(0).subtract(car.getPrice());
+        CarProfit.editProfit((costReducingBalance));
     }
 
 
-    public void removeCar(){
-        carList.remove(CarUtil.removeCarMenu(carList));
+    public void removeCar(Car car){
+        carList.remove(car);
+        CarProfit.editProfit(car.getPrice());
     }
-
-    public void showCars() {CarUtil.showList(carList);}
 
 
 }
