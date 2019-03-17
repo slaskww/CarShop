@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Car {
 
-    public static enum carFeatures {
+    public enum carFeatures {
         MAKE,
         PRICE,
         YEAR,
@@ -20,34 +20,34 @@ public class Car {
     private int mileage;
     private String color;
 
-    public Car(String color, String make, BigDecimal price, int door, int year, int milage) {
+    Car(String color, String make, BigDecimal price, int door, int year, int mileage) {
         this.color = color;
         this.make = make;
         this.price = price;
         this.door = door;
         this.year = year;
-        this.mileage = milage;
+        this.mileage = mileage;
     }
 
-    public String getColor() {
+     String getColor() {
         return color;
     }
 
-    public String getMake() {
+     String getMake() {
         return make;
     }
 
-    public BigDecimal getPrice() { return price;}
+     BigDecimal getPrice() { return price;}
 
-    public int getDoor() {
+     int getDoor() {
         return door;
     }
 
-    public int getYear() {
+     int getYear() {
         return year;
     }
 
-    public int getMilage() {
+     int getMileage() {
         return mileage;
     }
 

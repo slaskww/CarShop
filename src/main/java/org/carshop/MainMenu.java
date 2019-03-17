@@ -3,21 +3,17 @@ package org.carshop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenu {
+class MainMenu {
 
    private Integer choice  = 0;
 
-    public MainMenu() {
+   MainMenu() {}
 
-    }
-
-
-    public Integer getChoice() {
+    Integer getChoice() {
         return choice;
     }
 
-
-    public  void executeMainMenu(MyGarage garage){
+    void executeMainMenu(MyGarage garage){
 
         choice = CarUtil.showMainMenu();
 

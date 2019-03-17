@@ -3,12 +3,12 @@ package org.carshop;
 import java.math.BigDecimal;
 import java.util.function.Predicate;
 
-public class CarFilterPredicate {
+class CarFilterPredicate {
 
     public static class FilterByPrice implements Predicate<Car> {
         BigDecimal price;
 
-        public FilterByPrice(BigDecimal price) {
+        FilterByPrice(BigDecimal price) {
             this.price = price;
         }
 
@@ -21,7 +21,7 @@ public class CarFilterPredicate {
     public static class FilterByMake implements Predicate<Car> {
         String make;
 
-        public FilterByMake(String make) {
+        FilterByMake(String make) {
             this.make = make;
         }
 
@@ -34,7 +34,7 @@ public class CarFilterPredicate {
     public static class FilterByYear implements Predicate<Car> {
         Integer year;
 
-        public FilterByYear(Integer year) {
+        FilterByYear(Integer year) {
             this.year = year;
         }
 
@@ -47,20 +47,20 @@ public class CarFilterPredicate {
     public static class FilterByMileage implements Predicate<Car> {
         Integer mileage;
 
-        public FilterByMileage(Integer mileage) {
+        FilterByMileage(Integer mileage) {
             this.mileage = mileage;
         }
 
         @Override
         public boolean test(Car car) {
-            return car.getMilage() <= mileage;
+            return car.getMileage() <= mileage;
         }
     }
 
     public static class FilterByDoor implements Predicate<Car> {
         Integer door;
 
-        public FilterByDoor(Integer door) {
+        FilterByDoor(Integer door) {
             this.door = door;
         }
 
@@ -73,7 +73,7 @@ public class CarFilterPredicate {
     public static class FilterByColor implements Predicate<Car> {
         String color;
 
-        public FilterByColor(String color) {
+        FilterByColor(String color) {
             this.color = color;
         }
 

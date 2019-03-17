@@ -4,24 +4,24 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarProfit {
+ class CarProfit {
+
     private static BigDecimal balance = new BigDecimal(0);
     private static List<AccountHistoryObject> accountHistory =  new ArrayList<>();
 
-
-    public CarProfit() {
+    private CarProfit() {
     }
 
-    public static String getBalance() {
-         return "Stan konta: " + balance + " PLN\n";
+    static String getBalance() {
+         return "Balance: " + balance + " USD\n";
     }
 
-    public static void editBalance(BigDecimal transfer) {
+    static void editBalance(BigDecimal transfer) {
         balance = balance.add(transfer);
         accountHistory.add(new AccountHistoryObject(transfer));
     }
 
-    public static List<AccountHistoryObject> getAccountHistory() {
+    static List<AccountHistoryObject> getAccountHistory() {
         return accountHistory;
     }
 

@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyGarage {
+class MyGarage {
 
-   public List<Car> carList = new ArrayList<Car>();
+   List<Car> carList = new ArrayList<>();
 
-    public MyGarage() {
+   MyGarage() {
         carList.add(new Car("zielony", "BMW", new BigDecimal(35000), 5, 2008, 100000));
         carList.add(new Car("zielony", "Mazda", new BigDecimal(70000), 5, 2018, 200000));
         carList.add(new Car("bialy", "Nissan", new BigDecimal(12000), 3, 2000, 50000));
@@ -17,14 +17,14 @@ public class MyGarage {
         carList.add(new Car("czerwony", "Dacia", new BigDecimal(50000), 5, 2007, 230000));
     }
 
-    public void addCar(Car car){
+    void addCar(Car car){
         carList.add(car);
         BigDecimal costReducingBalance = new BigDecimal(0).subtract(car.getPrice());
         CarProfit.editBalance((costReducingBalance));
     }
 
 
-    public void removeCar(Car car){
+    void removeCar(Car car){
         carList.remove(car);
         CarProfit.editBalance(car.getPrice());
     }

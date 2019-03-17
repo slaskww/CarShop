@@ -1,36 +1,41 @@
 package org.carshop;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class CarUtil {
+class CarUtil {
 
-   public static Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
 
-    public static void showList(List<Car> list){
+    private CarUtil() {
+    }
 
-        if (list.size()  ==  0){
+    static void showList(List<Car> list) {
+
+        if (list.size() == 0) {
             System.out.println("Lista jest pusta.");
             return;
         }
-            System.out.printf("Lp.  %-15s %-15s %-15s %-15s %-15s %-15s\n",
-                    Car.carFeatures.MAKE,
-                    Car.carFeatures.PRICE,
-                    Car.carFeatures.YEAR,
-                    Car.carFeatures.MILEAGE,
-                    Car.carFeatures.DOOR,
-                    Car.carFeatures.COLOR);
+        System.out.printf("Lp.  %-15s %-15s %-15s %-15s %-15s %-15s\n",
+                Car.carFeatures.MAKE,
+                Car.carFeatures.PRICE,
+                Car.carFeatures.YEAR,
+                Car.carFeatures.MILEAGE,
+                Car.carFeatures.DOOR,
+                Car.carFeatures.COLOR);
 
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println((i+1) + "." + list.get(i).toString());
-            }
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + "." + list.get(i).toString());
+        }
         System.out.println();
     }
 
-    public static Car newCar(){
+    static Car newCar() {
 
         String make;
         String color;
@@ -57,9 +62,9 @@ public class CarUtil {
 
     }
 
-    public static Car removeCarMenu(List<Car> list){
+    static Car removeCarMenu(List<Car> list) {
 
-        if (list.size() == 0){
+        if (list.size() == 0) {
             System.out.println("Lista jest pusta.");
             return null;
         }
@@ -67,19 +72,19 @@ public class CarUtil {
         System.out.println("------------------------------------------");
 
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i+1) + "." + list.get(i).getMake());
+            System.out.println((i + 1) + "." + list.get(i).getMake());
         }
 
         int toRemove = input.nextInt();
-        if (toRemove == 0 || toRemove > list.size()){
+        if (toRemove == 0 || toRemove > list.size()) {
             System.out.println("Wybrałeś numer spoza zakresu listy!");
             return null;
         }
-       System.out.println("Pojazd "+ list.get(toRemove-1).getMake() + " został usunięty");
-       return list.get(toRemove-1);
+        System.out.println("Pojazd " + list.get(toRemove - 1).getMake() + " został usunięty");
+        return list.get(toRemove - 1);
     }
 
-    public static int showMainMenu(){
+    static int showMainMenu() {
 
         System.out.println("1 - dodaj nowy pojazd");
         System.out.println("2 - usuń pojazd");
@@ -93,14 +98,14 @@ public class CarUtil {
         return input.nextInt();
     }
 
-    public static void showTitle(){
+    static void showTitle() {
         System.out.println("=========================");
         System.out.println("|  CAR DEALER MANAGER   |");
         System.out.println("=========================");
     }
 
 
-    public static int showSortMenuAndReturnChoiceNumber(){
+    static int showSortMenuAndReturnChoiceNumber() {
         System.out.println("Posortuj listę po:");
         System.out.println("1 - marce pojazdu");
         System.out.println("2 - cenie pojazdu");
@@ -112,7 +117,7 @@ public class CarUtil {
         return input.nextInt();
     }
 
-    public static int showFilterMenuAndReturnChoice(){
+    static int showFilterMenuAndReturnChoice() {
         System.out.println("Przefiltruj listę po:");
         System.out.println("1 - marce pojazdu");
         System.out.println("2 - cenie pojazdu");
@@ -124,93 +129,93 @@ public class CarUtil {
         return input.nextInt();
     }
 
-    public static String takeMakeToFilter(List<Car> list){
+    static String takeMakeToFilter(List<Car> list) {
 
-        Set<String> makes  =  new TreeSet<String>();
-        for (Car car:  list) {
+        Set<String> makes = new TreeSet<>();
+        for (Car car : list) {
             makes.add(car.getMake());
         }
 
         System.out.println("Podaj markę pojazdu:");
-        for (String s:  makes) {
+        for (String s : makes) {
             System.out.println(s);
         }
         input.nextLine();
         return input.nextLine();
     }
 
-    public static int takeDoorToFilter(List<Car> list){
+    static int takeDoorToFilter(List<Car> list) {
 
-        Set<Integer> prices  =  new TreeSet<Integer>();
-        for (Car car:  list) {
+        Set<Integer> prices = new TreeSet<>();
+        for (Car car : list) {
             prices.add(car.getDoor());
         }
 
         System.out.println("Podaj liczbę drzwi:");
-        for (Integer s:  prices) {
+        for (Integer s : prices) {
             System.out.println(s);
         }
         return input.nextInt();
     }
 
-    public static String takeColorToFilter(List<Car> list){
+    static String takeColorToFilter(List<Car> list) {
 
-        Set<String> colors  =  new TreeSet<String>();
-        for (Car car:  list) {
+        Set<String> colors = new TreeSet<>();
+        for (Car car : list) {
             colors.add(car.getColor());
         }
 
 
         System.out.println("Podaj kolor karoserii:");
-        for (String s:  colors) {
+        for (String s : colors) {
             System.out.println(s);
         }
         input.nextLine();
         return input.nextLine();
     }
 
-    public static BigDecimal takePriceToFilter(List<Car> list){
+    static BigDecimal takePriceToFilter() {
         System.out.println("Podaj maksymalną cenę");
 
         BigDecimal maxPrice = input.nextBigDecimal();
-        if (maxPrice.compareTo(new BigDecimal(0))  < 0) {
+        if (maxPrice.compareTo(new BigDecimal(0)) < 0) {
             System.out.println("Cena  nie może być ujemna");
             return new BigDecimal(0);
         }
         return maxPrice;
     }
 
-    public static Integer takeYearToFilter(List<Car> list){
+    static Integer takeYearToFilter(List<Car> list) {
 
-        Set<Integer> years  =  new TreeSet<Integer>();
-        for (Car car:  list) {
+        Set<Integer> years = new TreeSet<>();
+        for (Car car : list) {
             years.add(car.getYear());
         }
 
         System.out.println("Podaj rocznik:");
-        for (Integer s:  years) {
+        for (Integer s : years) {
             System.out.println(s);
         }
         return input.nextInt();
     }
 
-    public static Integer takeMileageToFilter(List<Car> list){
+    static Integer takeMileageToFilter() {
         System.out.println("Podaj maksymalny przebieg");
 
-        Integer maxmileage = input.nextInt();
-        if (maxmileage.compareTo(0) < 0) {
+        Integer maxMileage = input.nextInt();
+        if (maxMileage.compareTo(0) < 0) {
             System.out.println("przebieg  nie może być ujemny");
             return 0;
         }
-        return maxmileage;
+        return maxMileage;
     }
 
-    public static String formatDate(LocalDateTime localTime){
+    static String formatDate(LocalDateTime localTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return  localTime.format(formatter);
+        return localTime.format(formatter);
     }
 
-    public static void showAccountHistory(List<AccountHistoryObject> accountHistory) {
+    static void showAccountHistory(List<AccountHistoryObject> accountHistory) {
 
         System.out.println("Historia rachunku:");
         System.out.println("==================");
@@ -220,10 +225,9 @@ public class CarUtil {
             return;
         }
 
-        for (AccountHistoryObject obj: accountHistory) {
+        for (AccountHistoryObject obj : accountHistory) {
             System.out.println(obj);
         }
         System.out.println();
     }
-
 }

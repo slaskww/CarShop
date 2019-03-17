@@ -1,28 +1,30 @@
 package org.carshop;
 
-import java.util.Collections;
 import java.util.List;
 
-public class SortMenu {
+class SortMenu {
 
     private SortMenu() {}
 
-    public static List<Car> sortByOneElementAndReturn(List<Car> list, int choice){
+    static List<Car> sortByOneElementAndReturn(List<Car> list, int choice){
         
         switch(choice){
 
-            case 1 : Collections.sort(list, new CarComparator.SortByMake());
+            case 1 : list.sort(new CarComparator.SortByMake());
                 break;
-            case 2 : Collections.sort(list, new CarComparator.SortByPrice());
+            case 2 : list.sort(new CarComparator.SortByPrice());
                 break;
-            case 3 : Collections.sort(list, new CarComparator.SortByYear());
+            case 3 : list.sort(new CarComparator.SortByYear());
                 break;
-            case 4 : Collections.sort(list, new CarComparator.SortByMileage());
+            case 4 : list.sort(new CarComparator.SortByMileage());
                 break;
-            case 5 : Collections.sort(list, new CarComparator.SortByDoor());
+            case 5 : list.sort(new CarComparator.SortByDoor());
                 break;
-            case 6 : Collections.sort(list, new CarComparator.SortByColor());
+            case 6 : list.sort(new CarComparator.SortByColor());
                 break;
+
+            default:
+                System.out.println("Brak kryterium o takim numerze.");
         }
         return list;
     }

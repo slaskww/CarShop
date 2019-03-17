@@ -1,59 +1,59 @@
 package org.carshop;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class FilterMenu {
+class FilterMenu {
 
-    private FilterMenu() {
-    }
+    private FilterMenu() {}
 
-    public static List<Car> filterByChosen(List<Car> list, int choice){
+    static List<Car> filterByChosen(List<Car> list, int choice) {
 
-        List<Car> filteredList = new ArrayList<>();
-        Predicate<Car> predicate;
+        List<Car> filteredList;
+        Predicate<Car> predicate = null;
 
-        switch(choice){
+        switch (choice) {
 
-            case 1 :
+            case 1:
                 String makeToFilter = CarUtil.takeMakeToFilter(list);
                 predicate = new CarFilterPredicate.FilterByMake(makeToFilter);
-                filteredList = CarFilter.filterBy(list, predicate);
                 break;
 
-            case 2 :
-                BigDecimal priceToFilter = CarUtil.takePriceToFilter(list);
+            case 2:
+                BigDecimal priceToFilter = CarUtil.takePriceToFilter();
                 predicate = new CarFilterPredicate.FilterByPrice(priceToFilter);
-                filteredList = CarFilter.filterBy(list, predicate);
                 break;
 
-            case 3 :
+            case 3:
                 Integer yearToFilter = CarUtil.takeYearToFilter(list);
                 predicate = new CarFilterPredicate.FilterByYear(yearToFilter);
-                filteredList = CarFilter.filterBy(list, predicate);
                 break;
 
-            case 4 :
-                Integer mileageToFilter = CarUtil.takeMileageToFilter(list);
+            case 4:
+                Integer mileageToFilter = CarUtil.takeMileageToFilter();
                 predicate = new CarFilterPredicate.FilterByMileage(mileageToFilter);
-                filteredList = CarFilter.filterBy(list, predicate);
                 break;
-            case 5 :
+            case 5:
                 Integer doorToFilter = CarUtil.takeDoorToFilter(list);
                 predicate = new CarFilterPredicate.FilterByDoor(doorToFilter);
-                filteredList = CarFilter.filterBy(list, predicate);
                 break;
-            case 6 :
+            case 6:
                 String colorToFilter = CarUtil.takeColorToFilter(list);
                 predicate = new CarFilterPredicate.FilterByColor(colorToFilter);
-                filteredList = CarFilter.filterBy(list, predicate);
                 break;
+
+            default:
+                System.out.println("Brak kryterium o takim numerze.");
         }
+
+        if (predicate == null) {
+            return list;
+        }
+
+        filteredList = CarFilter.filterBy(list, predicate);
         return filteredList;
     }
-
 
 
 }
