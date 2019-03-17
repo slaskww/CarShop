@@ -1,10 +1,10 @@
 package org.carshop;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class CarUtil {
 
@@ -202,7 +202,24 @@ public class CarUtil {
             return 0;
         }
         return maxmileage;
+    }
 
+    public static String getDate(){
+
+       // LocalDateTime today  = LocalDateTime.now();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        return  String.valueOf(fmt);
+    }
+
+    public static void showAccountHistory(TreeMap<String,BigDecimal> accountHistory){
+        System.out.println("Historia rachunku :\n");
+
+        for (Map.Entry<String,BigDecimal> entry: accountHistory.entrySet()) {
+
+            String key = entry.getKey();
+            BigDecimal value = entry.getValue();
+            System.out.printf(key +" $.2f", value);
+        }
     }
 
 }

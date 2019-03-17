@@ -1,11 +1,6 @@
 package org.carshop;
 
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Shop {
 
     public static void main(String[] args) {
@@ -13,8 +8,8 @@ public class Shop {
         MyGarage garage = new MyGarage();
         MainMenu menu = new MainMenu();
 
+        CarUtil.showTitle();
         while (menu.getChoice() != 9) {
-            CarUtil.showTitle();
             menu.executeMainMenu(garage);
         }
 

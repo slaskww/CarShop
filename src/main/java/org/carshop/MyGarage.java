@@ -22,7 +22,6 @@ public class MyGarage {
     }
 
 
-
     public void removeCar(){
         carList.remove(CarUtil.removeCarMenu(carList));
     }
