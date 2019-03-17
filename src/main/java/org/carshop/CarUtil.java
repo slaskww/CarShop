@@ -3,12 +3,26 @@ package org.carshop;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 class CarUtil {
+
+    static Locale currentLocale;
+    static ResourceBundle messages;
+
+    static void changeLanguage(){
+
+        System.out.println("Wybierz \n1 dla PL\n2 dla EN");
+        int c = input.nextInt();
+        if (c == 1){
+            currentLocale = new Locale("pl", "PL");
+
+        } else {
+            currentLocale = new Locale("en", "US");
+        }
+
+        messages = ResourceBundle.getBundle("Bundle",currentLocale);
+    }
 
     private static Scanner input = new Scanner(System.in);
 
@@ -45,17 +59,29 @@ class CarUtil {
         int mileage;
 
         input.nextLine();
-        System.out.println("Podaj nazwę producenta: ");
+        System.out.println(messages.getString("make"));
         make = input.nextLine();
-        System.out.println("Podaj cenę pojazdu: ");
+        System.out.println(messages.getString("price"));
         price = input.nextBigDecimal();
-        System.out.println("Podaj rok produkcji: ");
+        System.out.println(messages.getString("year"));
         year = input.nextInt();
-        System.out.println("Podaj przebieg (w km): ");
+        System.out.println(messages.getString("mileage"));
         mileage = input.nextInt();
-        System.out.println("Podaj liczbe drzwi: ");
+        System.out.println(messages.getString("door"));
         door = input.nextInt();
-        System.out.println("Podaj kolor pojazdu: ");
+        System.out.println(messages.getString("color"));
+
+//        System.out.println("Podaj nazwę producenta: ");
+//        make = input.nextLine();
+//        System.out.println("Podaj cenę pojazdu: ");
+//        price = input.nextBigDecimal();
+//        System.out.println("Podaj rok produkcji: ");
+//        year = input.nextInt();
+//        System.out.println("Podaj przebieg (w km): ");
+//        mileage = input.nextInt();
+//        System.out.println("Podaj liczbe drzwi: ");
+//        door = input.nextInt();
+//        System.out.println("Podaj kolor pojazdu: ");
         color = input.next();
 
         return new Car(color, make, price, door, year, mileage);

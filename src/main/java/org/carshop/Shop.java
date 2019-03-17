@@ -5,6 +5,7 @@ public class Shop {
 
     public static void main(String[] args) {
 
+        CarUtil.changeLanguage();
         MyGarage garage = new MyGarage();
         MainMenu menu = new MainMenu();
 
