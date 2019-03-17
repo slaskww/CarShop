@@ -37,9 +37,7 @@ public class Car {
         return make;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+    public BigDecimal getPrice() { return price;}
 
     public int getDoor() {
         return door;

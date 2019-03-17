@@ -16,15 +16,13 @@ public class CarProfit {
          return "Stan konta: " + balance + " PLN\n";
     }
 
-    public static void editProfit(BigDecimal transfer) {
+    public static void editBalance(BigDecimal transfer) {
         balance = balance.add(transfer);
         accountHistory.add(new AccountHistoryObject(transfer));
     }
 
-
-
-    public static void getAccountHistory() {
-        CarUtil.showAccountHistory(accountHistory);
+    public static List<AccountHistoryObject> getAccountHistory() {
+        return accountHistory;
     }
 
 }

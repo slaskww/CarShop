@@ -7,11 +7,8 @@ public class SortMenu {
 
     private SortMenu() {}
 
-    public static void sortByChosen(List<Car> list){
-
-        int choice;
-        choice =  CarUtil.showSortMenu();
-
+    public static List<Car> sortByOneElementAndReturn(List<Car> list, int choice){
+        
         switch(choice){
 
             case 1 : Collections.sort(list, new CarComparator.SortByMake());
@@ -27,6 +24,8 @@ public class SortMenu {
             case 6 : Collections.sort(list, new CarComparator.SortByColor());
                 break;
         }
-        CarUtil.showList(list);
+        return list;
     }
+
+
 }

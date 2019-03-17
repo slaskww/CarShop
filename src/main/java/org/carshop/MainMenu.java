@@ -1,5 +1,8 @@
 package org.carshop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainMenu {
 
    private Integer choice  = 0;
@@ -34,11 +37,14 @@ public class MainMenu {
                 break;
 
             case 4 :
-                SortMenu.sortByChosen(garage.carList);
+                int choice = CarUtil.showSortMenuAndReturnChoiceNumber();
+                List<Car> sortedList= new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.carList, choice));
+                CarUtil.showList(sortedList);
                 break;
 
             case 5 :
-                FilterMenu.filterByChosen(garage.carList);
+                choice = CarUtil.showFilterMenuAndReturnChoice();
+                FilterMenu.filterByChosen(garage.carList, choice);
                 break;
 
             case 6 :
@@ -47,7 +53,7 @@ public class MainMenu {
 
             case 7 :
                 System.out.println(CarProfit.getBalance());
-                CarProfit.getAccountHistory();
+                CarUtil.showAccountHistory(CarProfit.getAccountHistory());
               // System.out.println(CarUtil.getDate());
                 break;
 

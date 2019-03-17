@@ -100,7 +100,7 @@ public class CarUtil {
     }
 
 
-    public static int showSortMenu(){
+    public static int showSortMenuAndReturnChoiceNumber(){
         System.out.println("Posortuj listę po:");
         System.out.println("1 - marce pojazdu");
         System.out.println("2 - cenie pojazdu");
@@ -112,7 +112,7 @@ public class CarUtil {
         return input.nextInt();
     }
 
-    public static int showFilterMenu(){
+    public static int showFilterMenuAndReturnChoice(){
         System.out.println("Przefiltruj listę po:");
         System.out.println("1 - marce pojazdu");
         System.out.println("2 - cenie pojazdu");

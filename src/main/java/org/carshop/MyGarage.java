@@ -20,13 +20,13 @@ public class MyGarage {
     public void addCar(Car car){
         carList.add(car);
         BigDecimal costReducingBalance = new BigDecimal(0).subtract(car.getPrice());
-        CarProfit.editProfit((costReducingBalance));
+        CarProfit.editBalance((costReducingBalance));
     }
 
 
     public void removeCar(Car car){
         carList.remove(car);
-        CarProfit.editProfit(car.getPrice());
+        CarProfit.editBalance(car.getPrice());
     }
 
 

@@ -1,5 +1,6 @@
 package org.carshop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilterMenu {
@@ -7,26 +8,26 @@ public class FilterMenu {
     private FilterMenu() {
     }
 
-    public static void filterByChosen(List<Car> list){
+    public static List<Car> filterByChosen(List<Car> list, int choice){
 
-        int choice = CarUtil.showFilterMenu();
+        List<Car> filteredList = new ArrayList<>();
 
         switch(choice){
 
-            case 1 : CarFilter.filterByMake(list);
+            case 1 : filteredList = CarFilter.filterByMake(list);
                 break;
-            case 2 : CarFilter.filterByPrice(list);
+            case 2 : filteredList = CarFilter.filterByPrice(list);
                 break;
-            case 3 : CarFilter.filterByYear(list);
+            case 3 : filteredList = CarFilter.filterByYear(list);
                 break;
-            case 4 : CarFilter.filterByMileage(list);
+            case 4 : filteredList = CarFilter.filterByMileage(list);
                 break;
-            case 5 : CarFilter.filterByDoor(list);
+            case 5 : filteredList = CarFilter.filterByDoor(list);
                 break;
-            case 6 : CarFilter.filterByColor(list);
+            case 6 : filteredList = CarFilter.filterByColor(list);
                 break;
         }
-
+        return filteredList;
     }
 
 
