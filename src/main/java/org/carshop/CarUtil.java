@@ -28,10 +28,12 @@ class CarUtil {
         int c = input.nextInt();
         if (c == 1){
             currentLocale = new Locale("pl", "PL");
-
-        } else {
+        } else if (c == 2){
             currentLocale = new Locale("en", "US");
+        } else {
+            currentLocale = new Locale("sua", "SUA");
         }
+
         messages = ResourceBundle.getBundle("Bundle",currentLocale);
     }
 
