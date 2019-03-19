@@ -7,48 +7,50 @@ import java.util.*;
 
 class CarUtil {
 
-   private static Locale currentLocale =  null;
-   private static ResourceBundle messages;
-   private static Scanner input = new Scanner(System.in);
+    private static Locale currentLocale = null;
+    private static ResourceBundle message;
+    private static Scanner input = new Scanner(System.in);
+    private static final int EMPTY_LIST = 0;
+    static final String CHOICE_OUT_OF_RANGE = "OOF";
+    static final String NO_ELEMENTS_TO_CHOOSE = "NETC";
 
-   private CarUtil() {
+    private CarUtil() {
     }
 
 
-    static void changeLanguage(){
-        if (currentLocale == null){
-            messages = ResourceBundle.getBundle("Bundle", new Locale("pl", "PL"));
+    static void changeLanguage() {
+        if (currentLocale == null) {
+            message = ResourceBundle.getBundle("Bundle", new Locale("pl", "PL"));
         }
 
         System.out.println(
-                messages.getString("changeLanguageMsg1") + "\n" +
-                messages.getString("changeLanguageOptPl") + "\n" +
-                messages.getString("changeLanguageOptEn"));
+                message.getString("changeLanguageMsg1") + '\n' +
+                        message.getString("changeLanguageOptPl") + '\n' +
+                        message.getString("changeLanguageOptEn"));
 
         int c = input.nextInt();
-        if (c == 1){
+        if (c == 1) {
             currentLocale = new Locale("pl", "PL");
-        } else if (c == 2){
+        } else if (c == 2) {
             currentLocale = new Locale("en", "US");
         } else {
             currentLocale = new Locale("sua", "SUA");
         }
-
-        messages = ResourceBundle.getBundle("Bundle",currentLocale);
+        message = ResourceBundle.getBundle("Bundle", currentLocale);
     }
 
-    static void defaultMessage(){
-        System.out.println(messages.getString("defaultMessage"));
+    static void defaultMessage() {
+        System.out.println(message.getString("defaultMessage"));
     }
 
     static void showList(List<Car> list) {
 
-        if (list.size() == 0) {
-            System.out.println(messages.getString("showListCommunicate"));
+        if (list.size() == EMPTY_LIST) {
+            System.out.println(message.getString("showListCommunicate") + '\n');
             return;
         }
         System.out.println("--------------------------------------------------"
-                         + "--------------------------------------------------");
+                + "--------------------------------------------------");
 
         System.out.printf("Id.  %-15s %-15s %-15s %-15s %-15s %-15s\n",
                 Car.carFeatures.MAKE,
@@ -74,17 +76,17 @@ class CarUtil {
         int mileage;
 
         input.nextLine();
-        System.out.println(messages.getString("make"));
+        System.out.println(message.getString("make"));
         make = input.nextLine();
-        System.out.println(messages.getString("price"));
+        System.out.println(message.getString("price"));
         price = input.nextBigDecimal();
-        System.out.println(messages.getString("year"));
+        System.out.println(message.getString("year"));
         year = input.nextInt();
-        System.out.println(messages.getString("mileage"));
+        System.out.println(message.getString("mileage"));
         mileage = input.nextInt();
-        System.out.println(messages.getString("door"));
+        System.out.println(message.getString("door"));
         door = input.nextInt();
-        System.out.println(messages.getString("color"));
+        System.out.println(message.getString("color"));
 
         color = input.next();
 
@@ -94,40 +96,51 @@ class CarUtil {
 
     static Car removeCarMenu(List<Car> list) {
 
-        if (list.size() == 0) {
-            System.out.println(messages.getString("showListCommunicate"));
+        if (list.size() == EMPTY_LIST) {
+            System.out.println(message.getString("showListCommunicate") + '\n');
             return null;
         }
-        System.out.println(messages.getString("removeCarMenuMsg1"));
 
+        System.out.println(message.getString("removeCarMenuMsg1"));
         showList(list);
-
-        int toRemove = input.nextInt();
-        if (toRemove == 0 || toRemove > list.size()) {
-            System.out.println(messages.getString("removeCarMenuMsg2"));
+        try {
+            int toRemove = input.nextInt();
+            while (toRemove == 0 || toRemove > list.size()) {
+                System.out.println(message.getString("removeCarMenuMsg2"));
+                toRemove = input.nextInt();
+            }
+            System.out.println(
+                    message.getString("removeCarMenuMsg3") + " " +
+                            list.get(toRemove - 1).getMake() + " " +
+                            message.getString("removeCarMenuMsg4") + '\n');
+            return list.get(toRemove - 1);
+        }
+        catch (InputMismatchException e){
+            input.next();
+            System.out.println(message.getString("removeCarMenuMsg5") + '\n');
             return null;
         }
-        System.out.println(
-                messages.getString("removeCarMenuMsg3") + " " +
-                list.get(toRemove - 1).getMake() + " " +
-                messages.getString("removeCarMenuMsg4"));
+    }
+    static String showMainMenu() {
 
-        return list.get(toRemove - 1);
+        System.out.println(message.getString("showMainMenuMsg1"));
+        System.out.println(message.getString("showMainMenuMsg2"));
+        System.out.println(message.getString("showMainMenuMsg3"));
+        System.out.println(message.getString("showMainMenuMsg4"));
+        System.out.println(message.getString("showMainMenuMsg5"));
+        System.out.println(message.getString("showMainMenuMsg6"));
+        System.out.println(message.getString("showMainMenuMsg7"));
+        System.out.println(message.getString("showMainMenuMsg8"));
+        System.out.println(message.getString("showMainMenuMsg9"));
+
+        return input.next();
     }
 
-    static int showMainMenu() {
+    static void showBalance(BigDecimal balance) {
 
-        System.out.println(messages.getString("showMainMenuMsg1"));
-        System.out.println(messages.getString("showMainMenuMsg2"));
-        System.out.println(messages.getString("showMainMenuMsg3"));
-        System.out.println(messages.getString("showMainMenuMsg4"));
-        System.out.println(messages.getString("showMainMenuMsg5"));
-        System.out.println(messages.getString("showMainMenuMsg6"));
-        System.out.println(messages.getString("showMainMenuMsg7"));
-        System.out.println(messages.getString("showMainMenuMsg8"));
-        System.out.println(messages.getString("showMainMenuMsg9"));
-
-        return input.nextInt();
+        System.out.print(
+                message.getString("showBalanceMsg") + " ");
+        System.out.printf("%.2f %s", balance, " PLN\n");
     }
 
     static void showTitle() {
@@ -137,28 +150,40 @@ class CarUtil {
     }
 
 
-    static int showSortMenuAndReturnChoiceNumber() {
-        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg1"));
-        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg2"));
-        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg3"));
-        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg4"));
-        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg5"));
-        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg6"));
-        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg7"));
+    static String showSortMenuAndReturnChoiceNumber(List<Car> list) {
 
-        return input.nextInt();
+        if (list.size() == EMPTY_LIST) {
+            System.out.println(message.getString("showListCommunicate") + '\n');
+            return NO_ELEMENTS_TO_CHOOSE;
+        }
+
+        System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg1"));
+        System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg2"));
+        System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg3"));
+        System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg4"));
+        System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg5"));
+        System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg6"));
+        System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg7"));
+
+        return input.next();
     }
 
-    static int showFilterMenuAndReturnChoice() {
-        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg1"));
-        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg2"));
-        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg3"));
-        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg4"));
-        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg5"));
-        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg6"));
-        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg7"));
+    static String showFilterMenuAndReturnChoice(List<Car> list) {
 
-        return input.nextInt();
+        if (list.size() == EMPTY_LIST) {
+            System.out.println(message.getString("showListCommunicate") + '\n');
+            return NO_ELEMENTS_TO_CHOOSE;
+        }
+
+        System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg1"));
+        System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg2"));
+        System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg3"));
+        System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg4"));
+        System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg5"));
+        System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg6"));
+        System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg7"));
+
+        return input.next();
     }
 
     static String takeMakeToFilter(List<Car> list) {
@@ -168,7 +193,7 @@ class CarUtil {
             makes.add(car.getMake());
         }
 
-        System.out.println(messages.getString("takeMakeToFilterMsg"));
+        System.out.println(message.getString("takeMakeToFilterMsg"));
         for (String s : makes) {
             System.out.println(s);
         }
@@ -183,7 +208,7 @@ class CarUtil {
             prices.add(car.getDoor());
         }
 
-        System.out.println(messages.getString("takeDoorToFilterMsg"));
+        System.out.println(message.getString("takeDoorToFilterMsg"));
         for (Integer s : prices) {
             System.out.println(s);
         }
@@ -197,7 +222,7 @@ class CarUtil {
             colors.add(car.getColor());
         }
 
-        System.out.println(messages.getString("takeColorToFilterMsg"));
+        System.out.println(message.getString("takeColorToFilterMsg"));
         for (String s : colors) {
             System.out.println(s);
         }
@@ -206,11 +231,11 @@ class CarUtil {
     }
 
     static BigDecimal takePriceToFilter() {
-        System.out.println(messages.getString("takePriceToFilterMsg1"));
+        System.out.println(message.getString("takePriceToFilterMsg1"));
 
         BigDecimal maxPrice = input.nextBigDecimal();
         if (maxPrice.compareTo(new BigDecimal(0)) < 0) {
-            System.out.println(messages.getString("takePriceToFilterMsg2"));
+            System.out.println(message.getString("takePriceToFilterMsg2"));
             return new BigDecimal(0);
         }
         return maxPrice;
@@ -223,7 +248,7 @@ class CarUtil {
             years.add(car.getYear());
         }
 
-        System.out.println(messages.getString("takeYearToFilterMsg"));
+        System.out.println(message.getString("takeYearToFilterMsg"));
         for (Integer s : years) {
             System.out.println(s);
         }
@@ -231,11 +256,11 @@ class CarUtil {
     }
 
     static Integer takeMileageToFilter() {
-        System.out.println(messages.getString("takeMileageToFilterMsg1"));
+        System.out.println(message.getString("takeMileageToFilterMsg1"));
 
         Integer maxMileage = input.nextInt();
         if (maxMileage.compareTo(0) < 0) {
-            System.out.println(messages.getString("takeMileageToFilterMsg2"));
+            System.out.println(message.getString("takeMileageToFilterMsg2"));
             return 0;
         }
         return maxMileage;
@@ -248,11 +273,11 @@ class CarUtil {
 
     static void showAccountHistory(List<AccountHistoryObject> accountHistory) {
 
-        System.out.println(messages.getString("showAccountHistoryMsg1"));
+        System.out.println(message.getString("showAccountHistoryMsg1"));
         System.out.println("==================");
 
-        if (accountHistory.size() == 0) {
-            System.out.println(messages.getString("showAccountHistoryMsg2"));
+        if (accountHistory.size() == EMPTY_LIST) {
+            System.out.println(message.getString("showAccountHistoryMsg2") + '\n');
             return;
         }
 

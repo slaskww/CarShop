@@ -5,60 +5,72 @@ import java.util.List;
 
 class MainMenu {
 
-   private Integer choice  = 0;
 
-   MainMenu() {}
+    private String choice;
 
-    Integer getChoice() {
+
+    MainMenu() {
+        choice = CarUtil.CHOICE_OUT_OF_RANGE;
+    }
+
+    String getChoice() {
         return choice;
     }
 
-    void executeMainMenu(MyGarage garage){
+    void executeMainMenu(MyGarage garage) {
 
         choice = CarUtil.showMainMenu();
 
-        switch(choice){
-            case 1 :
+        switch (choice) {
+            case "1":
                 Car carToAdd = CarUtil.newCar();
                 garage.addCar(carToAdd);
                 break;
 
-            case 2 :
+            case "2":
                 Car carToRemove = CarUtil.removeCarMenu(garage.carList);
-                garage.removeCar(carToRemove);
+                if (carToRemove != null) {
+                    garage.removeCar(carToRemove);
+                }
                 break;
 
-            case 3 :
+            case "3":
                 CarUtil.showList(garage.carList);
                 break;
 
-            case 4 :
-                int choice = CarUtil.showSortMenuAndReturnChoiceNumber();
-                List<Car> sortedList= new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.carList, choice));
+            case "4":
+                choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.carList);
+                if (choice.equals(CarUtil.NO_ELEMENTS_TO_CHOOSE)) {
+                    break;
+                }
+                List<Car> sortedList = new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.carList, choice));
                 CarUtil.showList(sortedList);
                 break;
 
-            case 5 :
-                choice = CarUtil.showFilterMenuAndReturnChoice();
+            case "5":
+                choice = CarUtil.showFilterMenuAndReturnChoice(garage.carList);
+                if (choice.equals(CarUtil.NO_ELEMENTS_TO_CHOOSE)) {
+                    break;
+                }
                 List<Car> filteredList = FilterMenu.filterByChosen(garage.carList, choice);
                 CarUtil.showList(filteredList);
                 break;
 
-            case 6 :
+            case "6":
                 System.out.println("Empty");
                 break;
 
-            case 7 :
-                System.out.println(CarProfit.getBalance());
+            case "7":
+                CarUtil.showBalance(CarProfit.getBalance());
                 CarUtil.showAccountHistory(CarProfit.getAccountHistory());
                 break;
 
-            case 8 :
+            case "8":
                 CarUtil.changeLanguage();
                 break;
 
-            case 9 :
-                System.out.println();
+            case "9":
+                System.out.println("Zapisano stan programu.");
                 break;
 
             default:
