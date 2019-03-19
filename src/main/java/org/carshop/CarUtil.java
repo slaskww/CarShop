@@ -7,12 +7,24 @@ import java.util.*;
 
 class CarUtil {
 
-    static Locale currentLocale;
-    static ResourceBundle messages;
+   private static Locale currentLocale =  null;
+   private static ResourceBundle messages;
+   private static Scanner input = new Scanner(System.in);
+
+   private CarUtil() {
+    }
+
 
     static void changeLanguage(){
+        if (currentLocale == null){
+            messages = ResourceBundle.getBundle("Bundle", new Locale("pl", "PL"));
+        }
 
-        System.out.println("Wybierz \n1 dla PL\n2 dla EN");
+        System.out.println(
+                messages.getString("changeLanguageMsg1") + "\n" +
+                messages.getString("changeLanguageOptPl") + "\n" +
+                messages.getString("changeLanguageOptEn"));
+
         int c = input.nextInt();
         if (c == 1){
             currentLocale = new Locale("pl", "PL");
@@ -20,22 +32,23 @@ class CarUtil {
         } else {
             currentLocale = new Locale("en", "US");
         }
-
         messages = ResourceBundle.getBundle("Bundle",currentLocale);
     }
 
-    private static Scanner input = new Scanner(System.in);
-
-    private CarUtil() {
+    static void defaultMessage(){
+        System.out.println(messages.getString("defaultMessage"));
     }
 
     static void showList(List<Car> list) {
 
         if (list.size() == 0) {
-            System.out.println("Lista jest pusta.");
+            System.out.println(messages.getString("showListCommunicate"));
             return;
         }
-        System.out.printf("Lp.  %-15s %-15s %-15s %-15s %-15s %-15s\n",
+        System.out.println("--------------------------------------------------"
+                         + "--------------------------------------------------");
+
+        System.out.printf("Id.  %-15s %-15s %-15s %-15s %-15s %-15s\n",
                 Car.carFeatures.MAKE,
                 Car.carFeatures.PRICE,
                 Car.carFeatures.YEAR,
@@ -71,17 +84,6 @@ class CarUtil {
         door = input.nextInt();
         System.out.println(messages.getString("color"));
 
-//        System.out.println("Podaj nazwę producenta: ");
-//        make = input.nextLine();
-//        System.out.println("Podaj cenę pojazdu: ");
-//        price = input.nextBigDecimal();
-//        System.out.println("Podaj rok produkcji: ");
-//        year = input.nextInt();
-//        System.out.println("Podaj przebieg (w km): ");
-//        mileage = input.nextInt();
-//        System.out.println("Podaj liczbe drzwi: ");
-//        door = input.nextInt();
-//        System.out.println("Podaj kolor pojazdu: ");
         color = input.next();
 
         return new Car(color, make, price, door, year, mileage);
@@ -91,35 +93,37 @@ class CarUtil {
     static Car removeCarMenu(List<Car> list) {
 
         if (list.size() == 0) {
-            System.out.println("Lista jest pusta.");
+            System.out.println(messages.getString("showListCommunicate"));
             return null;
         }
-        System.out.println("Podaj numer pojazdu, który usunąć z listy: ");
-        System.out.println("------------------------------------------");
+        System.out.println(messages.getString("removeCarMenuMsg1"));
 
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + "." + list.get(i).getMake());
-        }
+        showList(list);
 
         int toRemove = input.nextInt();
         if (toRemove == 0 || toRemove > list.size()) {
-            System.out.println("Wybrałeś numer spoza zakresu listy!");
+            System.out.println(messages.getString("removeCarMenuMsg2"));
             return null;
         }
-        System.out.println("Pojazd " + list.get(toRemove - 1).getMake() + " został usunięty");
+        System.out.println(
+                messages.getString("removeCarMenuMsg3") + " " +
+                list.get(toRemove - 1).getMake() + " " +
+                messages.getString("removeCarMenuMsg4"));
+
         return list.get(toRemove - 1);
     }
 
     static int showMainMenu() {
 
-        System.out.println("1 - dodaj nowy pojazd");
-        System.out.println("2 - usuń pojazd");
-        System.out.println("3 - wyświetl listę");
-        System.out.println("4 - sortuj listę");
-        System.out.println("5 - filtruj listę");
-        System.out.println("6 - filtruj i sortuj listę");
-        System.out.println("7 - sprawdź stan konta");
-        System.out.println("9 - zakończ program");
+        System.out.println(messages.getString("showMainMenuMsg1"));
+        System.out.println(messages.getString("showMainMenuMsg2"));
+        System.out.println(messages.getString("showMainMenuMsg3"));
+        System.out.println(messages.getString("showMainMenuMsg4"));
+        System.out.println(messages.getString("showMainMenuMsg5"));
+        System.out.println(messages.getString("showMainMenuMsg6"));
+        System.out.println(messages.getString("showMainMenuMsg7"));
+        System.out.println(messages.getString("showMainMenuMsg8"));
+        System.out.println(messages.getString("showMainMenuMsg9"));
 
         return input.nextInt();
     }
@@ -132,25 +136,25 @@ class CarUtil {
 
 
     static int showSortMenuAndReturnChoiceNumber() {
-        System.out.println("Posortuj listę po:");
-        System.out.println("1 - marce pojazdu");
-        System.out.println("2 - cenie pojazdu");
-        System.out.println("3 - roku produkcji");
-        System.out.println("4 - przebiegu");
-        System.out.println("5 - liczbie drzwi");
-        System.out.println("6 - kolorze karoserii");
+        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg1"));
+        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg2"));
+        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg3"));
+        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg4"));
+        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg5"));
+        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg6"));
+        System.out.println(messages.getString("showSortMenuAndReturnChoiceNumberMsg7"));
 
         return input.nextInt();
     }
 
     static int showFilterMenuAndReturnChoice() {
-        System.out.println("Przefiltruj listę po:");
-        System.out.println("1 - marce pojazdu");
-        System.out.println("2 - cenie pojazdu");
-        System.out.println("3 - roku produkcji");
-        System.out.println("4 - przebiegu");
-        System.out.println("5 - liczbie drzwi");
-        System.out.println("6 - kolorze karoserii");
+        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg1"));
+        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg2"));
+        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg3"));
+        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg4"));
+        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg5"));
+        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg6"));
+        System.out.println(messages.getString("showFilterMenuAndReturnChoiceMsg7"));
 
         return input.nextInt();
     }
@@ -162,7 +166,7 @@ class CarUtil {
             makes.add(car.getMake());
         }
 
-        System.out.println("Podaj markę pojazdu:");
+        System.out.println(messages.getString("takeMakeToFilterMsg"));
         for (String s : makes) {
             System.out.println(s);
         }
@@ -177,7 +181,7 @@ class CarUtil {
             prices.add(car.getDoor());
         }
 
-        System.out.println("Podaj liczbę drzwi:");
+        System.out.println(messages.getString("takeDoorToFilterMsg"));
         for (Integer s : prices) {
             System.out.println(s);
         }
@@ -191,8 +195,7 @@ class CarUtil {
             colors.add(car.getColor());
         }
 
-
-        System.out.println("Podaj kolor karoserii:");
+        System.out.println(messages.getString("takeColorToFilterMsg"));
         for (String s : colors) {
             System.out.println(s);
         }
@@ -201,11 +204,11 @@ class CarUtil {
     }
 
     static BigDecimal takePriceToFilter() {
-        System.out.println("Podaj maksymalną cenę");
+        System.out.println(messages.getString("takePriceToFilterMsg1"));
 
         BigDecimal maxPrice = input.nextBigDecimal();
         if (maxPrice.compareTo(new BigDecimal(0)) < 0) {
-            System.out.println("Cena  nie może być ujemna");
+            System.out.println(messages.getString("takePriceToFilterMsg2"));
             return new BigDecimal(0);
         }
         return maxPrice;
@@ -218,7 +221,7 @@ class CarUtil {
             years.add(car.getYear());
         }
 
-        System.out.println("Podaj rocznik:");
+        System.out.println(messages.getString("takeYearToFilterMsg"));
         for (Integer s : years) {
             System.out.println(s);
         }
@@ -226,11 +229,11 @@ class CarUtil {
     }
 
     static Integer takeMileageToFilter() {
-        System.out.println("Podaj maksymalny przebieg");
+        System.out.println(messages.getString("takeMileageToFilterMsg1"));
 
         Integer maxMileage = input.nextInt();
         if (maxMileage.compareTo(0) < 0) {
-            System.out.println("przebieg  nie może być ujemny");
+            System.out.println(messages.getString("takeMileageToFilterMsg2"));
             return 0;
         }
         return maxMileage;
@@ -243,11 +246,11 @@ class CarUtil {
 
     static void showAccountHistory(List<AccountHistoryObject> accountHistory) {
 
-        System.out.println("Historia rachunku:");
+        System.out.println(messages.getString("showAccountHistoryMsg1"));
         System.out.println("==================");
 
         if (accountHistory.size() == 0) {
-            System.out.println("Historia jest pusta\n");
+            System.out.println(messages.getString("showAccountHistoryMsg2"));
             return;
         }
 

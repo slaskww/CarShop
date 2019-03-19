@@ -53,12 +53,16 @@ class MainMenu {
                 CarUtil.showAccountHistory(CarProfit.getAccountHistory());
                 break;
 
+            case 8 :
+                CarUtil.changeLanguage();
+                break;
+
             case 9 :
                 System.out.println();
                 break;
 
             default:
-                    System.out.println("Brak takiej opcji");
+                CarUtil.defaultMessage();
         }
     }
 }

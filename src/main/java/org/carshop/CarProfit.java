@@ -12,10 +12,6 @@ import java.util.List;
     private CarProfit() {
     }
 
-    static String getBalance() {
-         return "Balance: " + balance + " USD\n";
-    }
-
     static void editBalance(BigDecimal transfer) {
         balance = balance.add(transfer);
         accountHistory.add(new AccountHistoryObject(transfer));
@@ -24,6 +20,11 @@ import java.util.List;
     static List<AccountHistoryObject> getAccountHistory() {
         return accountHistory;
     }
+
+    static BigDecimal getBalance() {
+         return balance;
+     }
+
 
 }
 

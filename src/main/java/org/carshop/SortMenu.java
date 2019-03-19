@@ -24,7 +24,7 @@ class SortMenu {
                 break;
 
             default:
-                System.out.println("Brak kryterium o takim numerze.");
+                CarUtil.defaultMessage();
         }
         return list;
     }

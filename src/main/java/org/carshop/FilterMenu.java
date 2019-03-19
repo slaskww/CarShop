@@ -44,7 +44,7 @@ class FilterMenu {
                 break;
 
             default:
-                System.out.println("Brak kryterium o takim numerze.");
+                CarUtil.defaultMessage();
         }
 
         if (predicate == null) {
