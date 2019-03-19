@@ -9,8 +9,12 @@ class CarUtil {
 
     static final String CHOICE_OUT_OF_RANGE = "OOF";
     static final String NO_ELEMENTS_TO_CHOOSE = "NETC";
-    static final Integer ZERO =  0;
+    private static final Integer ZERO =  0;
+    private static final Locale USA = new Locale("en", "US");
+    private static final Locale POLAND = new Locale("pl", "PL");
+    private static final Locale SWAHILI = new Locale("sua", "SUA");
     private static final int EMPTY_LIST = 0;
+
     private static Locale currentLocale = null;
     private static ResourceBundle message;
     private static Scanner input = new Scanner(System.in);
@@ -21,7 +25,7 @@ class CarUtil {
 
     static void changeLanguage() {
         if (currentLocale == null) {
-            message = ResourceBundle.getBundle("Bundle", new Locale("pl", "PL"));
+            message = ResourceBundle.getBundle("Bundle", POLAND);
         }
 
         System.out.println(
@@ -36,12 +40,12 @@ class CarUtil {
 
         int c = input.nextInt();
         if (c == 1) {
-            currentLocale = new Locale("pl", "PL");
+            currentLocale = POLAND;
         } else if (c == 2) {
-            currentLocale = new Locale("en", "US");
+            currentLocale = USA;
         } else {
             System.out.println(message.getString("changeLanguageError2") + '\n');
-            currentLocale = new Locale("sua", "SUA");
+            currentLocale = SWAHILI;
         }
         message = ResourceBundle.getBundle("Bundle", currentLocale);
     }
