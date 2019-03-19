@@ -7,12 +7,13 @@ import java.util.*;
 
 class CarUtil {
 
+    static final String CHOICE_OUT_OF_RANGE = "OOF";
+    static final String NO_ELEMENTS_TO_CHOOSE = "NETC";
+    static final Integer ZERO =  0;
+    private static final int EMPTY_LIST = 0;
     private static Locale currentLocale = null;
     private static ResourceBundle message;
     private static Scanner input = new Scanner(System.in);
-    private static final int EMPTY_LIST = 0;
-    static final String CHOICE_OUT_OF_RANGE = "OOF";
-    static final String NO_ELEMENTS_TO_CHOOSE = "NETC";
 
     private CarUtil() {
     }
@@ -28,12 +29,18 @@ class CarUtil {
                         message.getString("changeLanguageOptPl") + '\n' +
                         message.getString("changeLanguageOptEn"));
 
+        while (!input.hasNextInt()) {
+            input.nextLine();
+            System.out.println(message.getString("changeLanguageError"));
+        }
+
         int c = input.nextInt();
         if (c == 1) {
             currentLocale = new Locale("pl", "PL");
         } else if (c == 2) {
             currentLocale = new Locale("en", "US");
         } else {
+            System.out.println(message.getString("changeLanguageError2") + '\n');
             currentLocale = new Locale("sua", "SUA");
         }
         message = ResourceBundle.getBundle("Bundle", currentLocale);
@@ -74,24 +81,28 @@ class CarUtil {
         int door;
         int year;
         int mileage;
+        try {
+            input.nextLine();
+            System.out.println(message.getString("make"));
+            make = input.nextLine();
+            System.out.println(message.getString("price"));
+            price = input.nextBigDecimal();
+            System.out.println(message.getString("year"));
+            year = input.nextInt();
+            System.out.println(message.getString("mileage"));
+            mileage = input.nextInt();
+            System.out.println(message.getString("door"));
+            door = input.nextInt();
+            System.out.println(message.getString("color"));
+            color = input.next();
 
-        input.nextLine();
-        System.out.println(message.getString("make"));
-        make = input.nextLine();
-        System.out.println(message.getString("price"));
-        price = input.nextBigDecimal();
-        System.out.println(message.getString("year"));
-        year = input.nextInt();
-        System.out.println(message.getString("mileage"));
-        mileage = input.nextInt();
-        System.out.println(message.getString("door"));
-        door = input.nextInt();
-        System.out.println(message.getString("color"));
+            return new Car(color, make, price, door, year, mileage);
 
-        color = input.next();
-
-        return new Car(color, make, price, door, year, mileage);
-
+        } catch (InputMismatchException e) {
+            System.out.println(message.getString("newCarError") + '\n');
+            input.nextLine();
+            return null;
+        }
     }
 
     static Car removeCarMenu(List<Car> list) {
@@ -103,9 +114,10 @@ class CarUtil {
 
         System.out.println(message.getString("removeCarMenuMsg1"));
         showList(list);
+
         try {
             int toRemove = input.nextInt();
-            while (toRemove == 0 || toRemove > list.size()) {
+            while (toRemove == ZERO || toRemove > list.size()) {
                 System.out.println(message.getString("removeCarMenuMsg2"));
                 toRemove = input.nextInt();
             }
@@ -114,13 +126,14 @@ class CarUtil {
                             list.get(toRemove - 1).getMake() + " " +
                             message.getString("removeCarMenuMsg4") + '\n');
             return list.get(toRemove - 1);
-        }
-        catch (InputMismatchException e){
+
+        } catch (InputMismatchException e) {
             input.next();
             System.out.println(message.getString("removeCarMenuMsg5") + '\n');
             return null;
         }
     }
+
     static String showMainMenu() {
 
         System.out.println(message.getString("showMainMenuMsg1"));
@@ -203,18 +216,29 @@ class CarUtil {
 
     static int takeDoorToFilter(List<Car> list) {
 
-        Set<Integer> prices = new TreeSet<>();
+        Set<Integer> doors = new TreeSet<>();
         for (Car car : list) {
-            prices.add(car.getDoor());
+            doors.add(car.getDoor());
         }
 
         System.out.println(message.getString("takeDoorToFilterMsg"));
-        for (Integer s : prices) {
+        for (Integer s : doors) {
             System.out.println(s);
         }
-        return input.nextInt();
-    }
+        Integer doorsToFilter;
+        while (true) {
+            while (!input.hasNextInt()) {
+                input.next();
+                System.out.println(message.getString("defaultMessage2"));
+            }
+            doorsToFilter = input.nextInt();
 
+            if(doorsToFilter.compareTo(ZERO) > ZERO) {
+                return doorsToFilter;
+            }
+            System.out.println(message.getString("takePriceToFilterMsg2"));
+        }
+    }
     static String takeColorToFilter(List<Car> list) {
 
         Set<String> colors = new TreeSet<>();
@@ -233,12 +257,19 @@ class CarUtil {
     static BigDecimal takePriceToFilter() {
         System.out.println(message.getString("takePriceToFilterMsg1"));
 
-        BigDecimal maxPrice = input.nextBigDecimal();
-        if (maxPrice.compareTo(new BigDecimal(0)) < 0) {
+        BigDecimal maxPrice;
+        while (true) {
+            while (!input.hasNextBigDecimal()) {
+                input.next();
+                System.out.println(message.getString("showFilterError"));
+            }
+            maxPrice = input.nextBigDecimal();
+            if (maxPrice.compareTo(BigDecimal.ZERO) >= ZERO) {
+                return maxPrice;
+            }
+
             System.out.println(message.getString("takePriceToFilterMsg2"));
-            return new BigDecimal(0);
         }
-        return maxPrice;
     }
 
     static Integer takeYearToFilter(List<Car> list) {
@@ -252,18 +283,39 @@ class CarUtil {
         for (Integer s : years) {
             System.out.println(s);
         }
-        return input.nextInt();
+
+        Integer year;
+        while (true) {
+
+            while (!input.hasNextInt()) {
+                input.next();
+                System.out.println(message.getString("defaultMessage2"));
+            }
+
+            year = input.nextInt();
+            if (year > ZERO) {
+                return year;
+            }
+            System.out.println(message.getString("takePriceToFilterMsg2"));
+        }
     }
 
     static Integer takeMileageToFilter() {
         System.out.println(message.getString("takeMileageToFilterMsg1"));
 
-        Integer maxMileage = input.nextInt();
-        if (maxMileage.compareTo(0) < 0) {
+        Integer maxMileage;
+
+        while (true) {
+            while (!input.hasNextInt()) {
+                input.next();
+                System.out.println(message.getString("defaultMessage2"));
+            }
+            maxMileage = input.nextInt();
+            if (maxMileage.compareTo(ZERO) > ZERO) {
+                return maxMileage;
+            }
             System.out.println(message.getString("takeMileageToFilterMsg2"));
-            return 0;
         }
-        return maxMileage;
     }
 
     static String formatDate(LocalDateTime localTime) {

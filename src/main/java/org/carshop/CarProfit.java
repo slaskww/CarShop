@@ -6,6 +6,7 @@ import java.util.List;
 
  class CarProfit {
 
+    public static  final BigDecimal ROI = BigDecimal.valueOf(1.2); //Return on Investment
     private static BigDecimal balance = new BigDecimal(0);
     private static List<AccountHistoryObject> accountHistory =  new ArrayList<>();
 

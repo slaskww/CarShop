@@ -24,6 +24,9 @@ class MainMenu {
         switch (choice) {
             case "1":
                 Car carToAdd = CarUtil.newCar();
+                if (carToAdd == null) {
+                    break;
+                }
                 garage.addCar(carToAdd);
                 break;
 
