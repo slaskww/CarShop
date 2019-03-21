@@ -10,11 +10,11 @@ public class I18NSample {
         String country;
 
         if (true) {
-            language = new String("en");
-            country = new String("US");
+            language = "en";
+            country = "US";
         } else {
-            language = new String("pl");
-            country = new String("PL");
+            language = "pl";
+            country = "PL";
         }
 
         Locale currentLocale;

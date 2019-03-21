@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class MainMenu {
-
-
     private String choice;
-
 
     MainMenu() {
         choice = CarUtil.CHOICE_OUT_OF_RANGE;
@@ -43,7 +40,7 @@ class MainMenu {
 
             case "4":
                 choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.carList);
-                if (choice.equals(CarUtil.NO_ELEMENTS_TO_CHOOSE)) {
+                if (choice.equals(CarUtil.NO_ELEMENTS_TO_SORT)) {
                     break;
                 }
                 List<Car> sortedList = new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.carList, choice));
@@ -51,12 +48,21 @@ class MainMenu {
                 break;
 
             case "5":
-                choice = CarUtil.showFilterMenuAndReturnChoice(garage.carList);
-                if (choice.equals(CarUtil.NO_ELEMENTS_TO_CHOOSE)) {
-                    break;
-                }
-                List<Car> filteredList = FilterMenu.filterByChosen(garage.carList, choice);
-                CarUtil.showList(filteredList);
+                List<Car> filteredList = garage.carList;
+                boolean isRequired;
+                do {
+                    choice = CarUtil.showFilterMenuAndReturnChoice(filteredList);
+                    if (choice.equals(CarUtil.NO_ELEMENTS_TO_FILTER)) {
+                        break;
+                    }
+                    filteredList = FilterMenu.filterByChosen(filteredList, choice);
+                    CarUtil.showList(filteredList);
+
+                    if(filteredList.size() == CarUtil.ONE_ELEMENT){
+                        break;
+                    }
+                    isRequired = CarUtil.isAnotherFilteringRequired();
+                } while(isRequired);
                 break;
 
             case "6":
@@ -73,11 +79,23 @@ class MainMenu {
                 break;
 
             case "9":
+                CarSaveLoadData.writeCurrentStateToFile(garage.carList, CarProfit.getAccountHistory(), CarProfit.getBalance());
                 System.out.println("Zapisano stan programu.");
+
                 break;
 
             default:
                 CarUtil.defaultMessage();
+        }
+    }
+
+    void loadFromFile(MyGarage garage){
+
+        if(CarUtil.isloadingFromFileChosen()){
+            System.out.println("Laduje dane...");
+            garage.addCarList(CarSaveLoadData.readCarListFromFile());
+            CarProfit.loadAccountHistory(CarSaveLoadData.loadHistoryStateAfterStart());
+            CarProfit.loadBalance(CarSaveLoadData.loadBalanceStateAfterStart());
         }
     }
 }

@@ -27,5 +27,12 @@ import java.util.List;
      }
 
 
+     static void loadAccountHistory(List<AccountHistoryObject> history){
+        accountHistory.addAll(history);
+     }
+
+     static void loadBalance(BigDecimal b){
+         balance = balance.add(b);
+     }
 }
 

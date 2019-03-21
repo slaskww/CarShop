@@ -8,7 +8,9 @@ import java.util.*;
 class CarUtil {
 
     static final String CHOICE_OUT_OF_RANGE = "OOF";
-    static final String NO_ELEMENTS_TO_CHOOSE = "NETC";
+    static final String NO_ELEMENTS_TO_SORT = "NETS";
+    static final String NO_ELEMENTS_TO_FILTER = "NETF";
+    static final Integer ONE_ELEMENT = 1;
     private static final Integer ZERO =  0;
     private static final Locale USA = new Locale("en", "US");
     private static final Locale POLAND = new Locale("pl", "PL");
@@ -22,6 +24,16 @@ class CarUtil {
     private CarUtil() {
     }
 
+    static boolean isloadingFromFileChosen(){
+        System.out.println("Jeśli chcesz załadować poprzedni stan programu wybierz '1'" +
+                "\nW przeciwnym wypaadku wybierz inny znak. ");
+
+           String choice = input.next();
+           if (choice.equals("1")){
+               return true;
+           }
+           return false;
+    }
 
     static void changeLanguage() {
         if (currentLocale == null) {
@@ -171,7 +183,7 @@ class CarUtil {
 
         if (list.size() == EMPTY_LIST) {
             System.out.println(message.getString("showListCommunicate") + '\n');
-            return NO_ELEMENTS_TO_CHOOSE;
+            return NO_ELEMENTS_TO_SORT;
         }
 
         System.out.println(message.getString("showSortMenuAndReturnChoiceNumberMsg1"));
@@ -187,9 +199,9 @@ class CarUtil {
 
     static String showFilterMenuAndReturnChoice(List<Car> list) {
 
-        if (list.size() == EMPTY_LIST) {
+        if (list.size() == EMPTY_LIST || list.size() == ONE_ELEMENT) {
             System.out.println(message.getString("showListCommunicate") + '\n');
-            return NO_ELEMENTS_TO_CHOOSE;
+            return NO_ELEMENTS_TO_FILTER;
         }
 
         System.out.println(message.getString("showFilterMenuAndReturnChoiceMsg1"));
@@ -320,6 +332,19 @@ class CarUtil {
             }
             System.out.println(message.getString("takeMileageToFilterMsg2"));
         }
+    }
+
+    static boolean isAnotherFilteringRequired(){
+
+        System.out.println("Wybierz '1' by kontynuować filtrowanie?\nWybierz dowony inny znak, by zakończyć filtrowanie");
+
+            while (!input.hasNextInt()) {
+                input.next();
+                return false;
+            }
+            int choice = input.nextInt();
+            return (choice == 1);
+
     }
 
     static String formatDate(LocalDateTime localTime) {

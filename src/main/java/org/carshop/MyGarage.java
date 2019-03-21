@@ -29,5 +29,8 @@ class MyGarage {
         CarProfit.editBalance(car.getPrice().multiply((CarProfit.ROI)));
     }
 
+    void addCarList(List<Car> list){
+        carList.addAll(list);
+    }
 
 }
