@@ -48,7 +48,7 @@ class MainMenu {
                 break;
 
             case "5":
-                List<Car> filteredList = garage.carList;
+                List<Car> filteredList = garage.getCarList();
                 boolean isRequired;
                 do {
                     choice = CarUtil.showFilterMenuAndReturnChoice(filteredList);
@@ -79,7 +79,7 @@ class MainMenu {
                 break;
 
             case "9":
-                CarSaveLoadData.writeCurrentStateToFile(garage.carList, CarProfit.getAccountHistory(), CarProfit.getBalance());
+                CarSaveLoadData.writeCurrentStateToFile(garage.getCarList(), CarProfit.getAccountHistory(), CarProfit.getBalance());
                 System.out.println("Zapisano stan programu.");
 
                 break;
@@ -93,7 +93,7 @@ class MainMenu {
 
         if(CarUtil.isloadingFromFileChosen()){
             System.out.println("Laduje dane...");
-            garage.addCarList(CarSaveLoadData.readCarListFromFile());
+     //       garage.addCarList(CarSaveLoadData.readCarListFromFile());
             CarProfit.loadAccountHistory(CarSaveLoadData.loadHistoryStateAfterStart());
             CarProfit.loadBalance(CarSaveLoadData.loadBalanceStateAfterStart());
         }

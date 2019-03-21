@@ -3,6 +3,7 @@ package org.carshop;
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -18,17 +19,21 @@ public class CarSaveLoadData implements Serializable {
         try {
             FileOutputStream fOutput = new FileOutputStream(new File("SavedData.txt"));
             ObjectOutputStream objOutput = new ObjectOutputStream(fOutput);
+            LinkedList<Car> ccc = new LinkedList<>(carsToSave);
+            LinkedList<AccountHistoryObject> hhh = new LinkedList<>(historyToSave);
 
-            objOutput.writeObject(carsToSave);
-            objOutput.writeObject(historyToSave);
-            objOutput.writeObject(balance);
+
+          objOutput.writeObject(ccc);
+          objOutput.writeObject(hhh);
+          objOutput.writeObject(balance);
+
 
             fOutput.close();
             objOutput.close();
         }catch(FileNotFoundException e){
             System.out.println("File not found");
         }catch(IOException e){
-            System.out.println("Error initializing stream");
+            System.out.println("Error initializing stream in writeToFile");
         }
     }
 
@@ -49,7 +54,7 @@ public class CarSaveLoadData implements Serializable {
             System.out.println("File not found");
             return loadedCarList;
         } catch (IOException e) {
-            System.out.println("Error initializing stream");
+            System.out.println("Error initializing stream in readList");
             return loadedCarList;
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException");
@@ -58,6 +63,7 @@ public class CarSaveLoadData implements Serializable {
     }
 
     public static List<AccountHistoryObject> loadHistoryStateAfterStart(){
+
 
         List<AccountHistoryObject> loadedHistory = new ArrayList<>();
         try {
@@ -74,7 +80,7 @@ public class CarSaveLoadData implements Serializable {
             System.out.println("File not found");
             return loadedHistory;
         } catch (IOException e) {
-            System.out.println("Error initializing stream");
+            System.out.println("Error initializing stream in loadHistory");
             return loadedHistory;
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException");
@@ -97,7 +103,7 @@ public class CarSaveLoadData implements Serializable {
             System.out.println("File not found");
             return loadedBalance;
         } catch (IOException e) {
-            System.out.println("Error initializing stream");
+            System.out.println("Error initializing stream in loadBalance");
             return loadedBalance;
         } catch (ClassNotFoundException e) {
             System.out.println("ClassNotFoundException");
