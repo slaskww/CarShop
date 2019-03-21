@@ -1,5 +1,7 @@
 package org.carshop;
 
+import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,11 +60,11 @@ class MainMenu {
                     filteredList = FilterMenu.filterByChosen(filteredList, choice);
                     CarUtil.showList(filteredList);
 
-                    if(filteredList.size() == CarUtil.ONE_ELEMENT){
+                    if (filteredList.size() == CarUtil.ONE_ELEMENT) {
                         break;
                     }
                     isRequired = CarUtil.isAnotherFilteringRequired();
-                } while(isRequired);
+                } while (isRequired);
                 break;
 
             case "6":
@@ -79,7 +81,7 @@ class MainMenu {
                 break;
 
             case "9":
-                CarSaveLoadData.writeCurrentStateToFile(garage.getCarList(), CarProfit.getAccountHistory(), CarProfit.getBalance());
+                CarUtil.writeCurrentStateToFile(garage.getCarList(), CarProfit.getAccountHistory(), CarProfit.getBalance());
                 System.out.println("Zapisano stan programu.");
 
                 break;
@@ -89,13 +91,29 @@ class MainMenu {
         }
     }
 
-    void loadFromFile(MyGarage garage){
+    void loadFromFile(MyGarage garage) {
 
-        if(CarUtil.isloadingFromFileChosen()){
-            System.out.println("Laduje dane...");
-     //       garage.addCarList(CarSaveLoadData.readCarListFromFile());
-            CarProfit.loadAccountHistory(CarSaveLoadData.loadHistoryStateAfterStart());
-            CarProfit.loadBalance(CarSaveLoadData.loadBalanceStateAfterStart());
+        if (CarUtil.isloadingFromFileChosen()) {
+            try {
+                FileInputStream fInput = new FileInputStream(new File("SavedData.txt"));
+                ObjectInputStream objInput = new ObjectInputStream(fInput);
+
+                garage.addCarList((ArrayList<Car>) objInput.readObject());
+                CarProfit.loadAccountHistory((ArrayList<AccountHistoryObject>) objInput.readObject());
+                CarProfit.loadBalance((BigDecimal) objInput.readObject());
+
+                fInput.close();
+                objInput.close();
+                CarUtil.communicateAfterLoading();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
+

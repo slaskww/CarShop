@@ -1,5 +1,6 @@
 package org.carshop;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +12,7 @@ class CarUtil {
     static final String NO_ELEMENTS_TO_SORT = "NETS";
     static final String NO_ELEMENTS_TO_FILTER = "NETF";
     static final Integer ONE_ELEMENT = 1;
-    private static final Integer ZERO =  0;
+    private static final Integer ZERO = 0;
     private static final Locale USA = new Locale("en", "US");
     private static final Locale POLAND = new Locale("pl", "PL");
     private static final Locale SWAHILI = new Locale("sua", "SUA");
@@ -24,15 +25,48 @@ class CarUtil {
     private CarUtil() {
     }
 
-    static boolean isloadingFromFileChosen(){
+    static boolean isloadingFromFileChosen() {
         System.out.println("Jeśli chcesz załadować poprzedni stan programu wybierz '1'" +
                 "\nW przeciwnym wypaadku wybierz inny znak. ");
 
-           String choice = input.next();
-           if (choice.equals("1")){
-               return true;
-           }
-           return false;
+        String choice = input.next();
+        if (choice.equals("1")) {
+            return true;
+        }
+        return false;
+    }
+
+    static void communicateAfterLoading() {
+        System.out.print("Trwa ładowanie danych ");
+        for (int i = 0; i < 4; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.print(".");
+        }
+        System.out.println("\nDane zostały załadowane\n");
+    }
+
+
+    public static void writeCurrentStateToFile(List<Car> carsToSave, List<AccountHistoryObject> historyToSave, BigDecimal balance) {
+
+        try {
+            FileOutputStream fOutput = new FileOutputStream(new File("SavedData.txt"));
+            ObjectOutputStream objOutput = new ObjectOutputStream(fOutput);
+
+            objOutput.writeObject(carsToSave);
+            objOutput.writeObject(historyToSave);
+            objOutput.writeObject(balance);
+
+            fOutput.close();
+            objOutput.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream in writeToFile");
+        }
     }
 
     static void changeLanguage() {
@@ -249,12 +283,13 @@ class CarUtil {
             }
             doorsToFilter = input.nextInt();
 
-            if(doorsToFilter.compareTo(ZERO) > ZERO) {
+            if (doorsToFilter.compareTo(ZERO) > ZERO) {
                 return doorsToFilter;
             }
             System.out.println(message.getString("takePriceToFilterMsg2"));
         }
     }
+
     static String takeColorToFilter(List<Car> list) {
 
         Set<String> colors = new TreeSet<>();
@@ -334,16 +369,16 @@ class CarUtil {
         }
     }
 
-    static boolean isAnotherFilteringRequired(){
+    static boolean isAnotherFilteringRequired() {
 
         System.out.println("Wybierz '1' by kontynuować filtrowanie?\nWybierz dowony inny znak, by zakończyć filtrowanie");
 
-            while (!input.hasNextInt()) {
-                input.next();
-                return false;
-            }
-            int choice = input.nextInt();
-            return (choice == 1);
+        while (!input.hasNextInt()) {
+            input.next();
+            return false;
+        }
+        int choice = input.nextInt();
+        return (choice == 1);
 
     }
 

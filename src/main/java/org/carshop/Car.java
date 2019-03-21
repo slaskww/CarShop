@@ -1,8 +1,9 @@
 package org.carshop;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Car {
+public class Car implements Serializable {
 
     public enum carFeatures {
         MAKE,

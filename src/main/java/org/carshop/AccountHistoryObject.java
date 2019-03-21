@@ -1,9 +1,10 @@
 package org.carshop;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class AccountHistoryObject {
+public class AccountHistoryObject implements Serializable {
 
   private LocalDateTime todayDate;
   private BigDecimal singleTransfer = new BigDecimal(0);
