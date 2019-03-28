@@ -25,19 +25,22 @@ class CarUtil {
     private CarUtil() {
     }
 
-    static boolean isloadingFromFileChosen() {
-        System.out.println("Jeśli chcesz załadować poprzedni stan programu wybierz '1'" +
-                "\nW przeciwnym wypaadku wybierz inny znak. ");
+    static boolean isLoadingFromFileChosen() {
+        System.out.println(message.getString("isLoadingFromFileChosenMsg1"));
 
         String choice = input.next();
-        if (choice.equals("1")) {
-            return true;
-        }
-        return false;
+        return choice.equals("1");
     }
 
-    static void communicateAfterLoading() {
-        System.out.print("Trwa ładowanie danych ");
+    static void messageAfterAddingNewCar() {
+
+        System.out.println(message.getString("messageAfterAddingNewCarMsg1"));
+        System.out.println();
+    }
+
+
+    static void messageAfterLoading() {
+        System.out.print(message.getString("messageAfterLoadingMsg1"));
         for (int i = 0; i < 4; i++) {
             try {
                 Thread.sleep(1000);
@@ -46,11 +49,19 @@ class CarUtil {
             }
             System.out.print(".");
         }
-        System.out.println("\nDane zostały załadowane\n");
+        System.out.println('\n' + message.getString("messageAfterLoadingMsg2") + '\n');
+    }
+
+    static void messageAfterSaving() {
+        System.out.println(message.getString("messageAfterSavingMsg1"));
     }
 
 
-    public static void writeCurrentStateToFile(List<Car> carsToSave, List<AccountHistoryObject> historyToSave, BigDecimal balance) {
+    static void messageFileNotFound(){
+        System.out.println(message.getString("messageFileNotFoundMsg") + '\n');
+    }
+
+    static void writeCurrentStateToFile(List<Car> carsToSave, List<AccountHistoryObject> historyToSave, BigDecimal balance) {
 
         try {
             FileOutputStream fOutput = new FileOutputStream(new File("SavedData.txt"));
@@ -80,7 +91,7 @@ class CarUtil {
                         message.getString("changeLanguageOptEn"));
 
         while (!input.hasNextInt()) {
-            input.nextLine();
+            input.next();
             System.out.println(message.getString("changeLanguageError"));
         }
 
@@ -103,7 +114,7 @@ class CarUtil {
     static void showList(List<Car> list) {
 
         if (list.size() == EMPTY_LIST) {
-            System.out.println(message.getString("showListCommunicate") + '\n');
+            System.out.println(message.getString("showListMessage") + '\n');
             return;
         }
         System.out.println("--------------------------------------------------"
@@ -158,7 +169,7 @@ class CarUtil {
     static Car removeCarMenu(List<Car> list) {
 
         if (list.size() == EMPTY_LIST) {
-            System.out.println(message.getString("showListCommunicate") + '\n');
+            System.out.println(message.getString("showListMessage") + '\n');
             return null;
         }
 
@@ -216,7 +227,12 @@ class CarUtil {
     static String showSortMenuAndReturnChoiceNumber(List<Car> list) {
 
         if (list.size() == EMPTY_LIST) {
-            System.out.println(message.getString("showListCommunicate") + '\n');
+            System.out.println(message.getString("showListMessage") + '\n');
+            return NO_ELEMENTS_TO_SORT;
+        }
+
+        if (list.size() == ONE_ELEMENT) {
+            System.out.println(message.getString("showListMessage2") + '\n');
             return NO_ELEMENTS_TO_SORT;
         }
 
@@ -233,8 +249,12 @@ class CarUtil {
 
     static String showFilterMenuAndReturnChoice(List<Car> list) {
 
-        if (list.size() == EMPTY_LIST || list.size() == ONE_ELEMENT) {
-            System.out.println(message.getString("showListCommunicate") + '\n');
+        if (list.size() == EMPTY_LIST) {
+            System.out.println(message.getString("showListMessage") + '\n');
+            return NO_ELEMENTS_TO_FILTER;
+        }
+        if (list.size() == ONE_ELEMENT) {
+            System.out.println(message.getString("showListMessage2") + '\n');
             return NO_ELEMENTS_TO_FILTER;
         }
 
@@ -370,8 +390,7 @@ class CarUtil {
     }
 
     static boolean isAnotherFilteringRequired() {
-
-        System.out.println("Wybierz '1' by kontynuować filtrowanie?\nWybierz dowony inny znak, by zakończyć filtrowanie");
+        System.out.println(message.getString("isAnotherFilteringRequiredMsg1"));
 
         while (!input.hasNextInt()) {
             input.next();

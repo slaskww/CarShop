@@ -21,26 +21,27 @@ class MainMenu {
         choice = CarUtil.showMainMenu();
 
         switch (choice) {
-            case "1":
+            case "1": //add a new car
                 Car carToAdd = CarUtil.newCar();
                 if (carToAdd == null) {
                     break;
                 }
                 garage.addCar(carToAdd);
+                CarUtil.messageAfterAddingNewCar();
                 break;
 
-            case "2":
+            case "2": //remove a car
                 Car carToRemove = CarUtil.removeCarMenu(garage.carList);
                 if (carToRemove != null) {
                     garage.removeCar(carToRemove);
                 }
                 break;
 
-            case "3":
+            case "3": //show list
                 CarUtil.showList(garage.carList);
                 break;
 
-            case "4":
+            case "4": //sort list
                 choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.carList);
                 if (choice.equals(CarUtil.NO_ELEMENTS_TO_SORT)) {
                     break;
@@ -49,7 +50,7 @@ class MainMenu {
                 CarUtil.showList(sortedList);
                 break;
 
-            case "5":
+            case "5": //filter list
                 List<Car> filteredList = garage.getCarList();
                 boolean isRequired;
                 do {
@@ -67,22 +68,31 @@ class MainMenu {
                 } while (isRequired);
                 break;
 
-            case "6":
-                System.out.println("Empty");
+            case "6": //sort and filter list
+                choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.carList);
+                if (choice.equals(CarUtil.NO_ELEMENTS_TO_SORT)) {
+                    break;
+                }
+                List<Car> sortedAndFilteredList = new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.carList, choice));
+                CarUtil.showList(sortedAndFilteredList);
+
+                choice = CarUtil.showFilterMenuAndReturnChoice(sortedAndFilteredList);
+                sortedAndFilteredList = FilterMenu.filterByChosen(sortedAndFilteredList, choice);
+                CarUtil.showList(sortedAndFilteredList);
                 break;
 
-            case "7":
+            case "7": //check balance
                 CarUtil.showBalance(CarProfit.getBalance());
                 CarUtil.showAccountHistory(CarProfit.getAccountHistory());
                 break;
 
-            case "8":
+            case "8": //change language version
                 CarUtil.changeLanguage();
                 break;
 
-            case "9":
+            case "9": //close program
                 CarUtil.writeCurrentStateToFile(garage.getCarList(), CarProfit.getAccountHistory(), CarProfit.getBalance());
-                System.out.println("Zapisano stan programu.");
+                CarUtil.messageAfterSaving();
 
                 break;
 
@@ -93,7 +103,7 @@ class MainMenu {
 
     void loadFromFile(MyGarage garage) {
 
-        if (CarUtil.isloadingFromFileChosen()) {
+        if (CarUtil.isLoadingFromFileChosen()) {
             try {
                 FileInputStream fInput = new FileInputStream(new File("SavedData.txt"));
                 ObjectInputStream objInput = new ObjectInputStream(fInput);
@@ -104,14 +114,14 @@ class MainMenu {
 
                 fInput.close();
                 objInput.close();
-                CarUtil.communicateAfterLoading();
+                CarUtil.messageAfterLoading();
 
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                CarUtil.messageFileNotFound();
             } catch (IOException e) {
-                e.printStackTrace();
+                CarUtil.messageFileNotFound();
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                CarUtil.messageFileNotFound();
             }
         }
     }
