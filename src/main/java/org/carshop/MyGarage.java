@@ -6,9 +6,9 @@ import java.util.List;
 
 class MyGarage {
 
-   List<Car> carList = new ArrayList<>();
+  private List<Car> carList = new ArrayList<>();
 
-   MyGarage() {
+    public MyGarage() {
 //        carList.add(new Car("zielony", "BMW", new BigDecimal(35000), 5, 2008, 100000));
 //        carList.add(new Car("zielony", "Mazda", new BigDecimal(70000), 5, 2018, 200000));
 //        carList.add(new Car("bialy", "Nissan", new BigDecimal(12000), 3, 2000, 50000));
@@ -17,23 +17,25 @@ class MyGarage {
 //        carList.add(new Car("czerwony", "Dacia", new BigDecimal(50000), 5, 2007, 230000));
     }
 
-    void addCar(Car car){
+    public void addCar(Car car){
         carList.add(car);
         BigDecimal costReducingBalance = car.getPrice().negate();
         CarProfit.editBalance((costReducingBalance));
     }
 
 
-    void removeCar(Car car){
+    public void removeCar(Car car){
         carList.remove(car);
         CarProfit.editBalance(car.getPrice().multiply((CarProfit.ROI)));
     }
 
-    void addCarList(List<Car> list){
+    public void addCarList(List<Car> list){
         carList.addAll(list);
     }
 
     public List<Car> getCarList() {
         return carList;
     }
+
+
 }

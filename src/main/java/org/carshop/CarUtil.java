@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-class CarUtil {
+public class CarUtil {
 
     static final String CHOICE_OUT_OF_RANGE = "OOF";
     static final String NO_ELEMENTS_TO_SORT = "NETS";
@@ -25,21 +25,21 @@ class CarUtil {
     private CarUtil() {
     }
 
-    static boolean isLoadingFromFileChosen() {
+    public static boolean isLoadingFromFileChosen() {
         System.out.println(message.getString("isLoadingFromFileChosenMsg1"));
 
         String choice = input.next();
         return choice.equals("1");
     }
 
-    static void messageAfterAddingNewCar() {
+    public static void messageAfterAddingNewCar() {
 
         System.out.println(message.getString("messageAfterAddingNewCarMsg1"));
         System.out.println();
     }
 
 
-    static void messageAfterLoading() {
+    public static void messageAfterLoading() {
         System.out.print(message.getString("messageAfterLoadingMsg1"));
         for (int i = 0; i < 4; i++) {
             try {
@@ -52,16 +52,16 @@ class CarUtil {
         System.out.println('\n' + message.getString("messageAfterLoadingMsg2") + '\n');
     }
 
-    static void messageAfterSaving() {
+    public static void messageAfterSaving() {
         System.out.println(message.getString("messageAfterSavingMsg1"));
     }
 
 
-    static void messageFileNotFound(){
+    public static void messageFileNotFound() {
         System.out.println(message.getString("messageFileNotFoundMsg") + '\n');
     }
 
-    static void writeCurrentStateToFile(List<Car> carsToSave, List<AccountHistoryObject> historyToSave, BigDecimal balance) {
+    public static void writeCurrentStateToFile(List<Car> carsToSave, List<AccountHistoryObject> historyToSave, BigDecimal balance) {
 
         try {
             FileOutputStream fOutput = new FileOutputStream(new File("SavedData.txt"));
@@ -80,7 +80,7 @@ class CarUtil {
         }
     }
 
-    static void changeLanguage() {
+    public static void changeLanguage() {
         if (currentLocale == null) {
             message = ResourceBundle.getBundle("Bundle", POLAND);
         }
@@ -107,11 +107,11 @@ class CarUtil {
         message = ResourceBundle.getBundle("Bundle", currentLocale);
     }
 
-    static void defaultMessage() {
+    public static void defaultMessage() {
         System.out.println(message.getString("defaultMessage"));
     }
 
-    static void showList(List<Car> list) {
+    public static void showList(List<Car> list) {
 
         if (list.size() == EMPTY_LIST) {
             System.out.println(message.getString("showListMessage") + '\n');
@@ -134,7 +134,7 @@ class CarUtil {
         System.out.println();
     }
 
-    static Car newCar() {
+    public static Car newCar() {
 
         String make;
         String color;
@@ -166,7 +166,7 @@ class CarUtil {
         }
     }
 
-    static Car removeCarMenu(List<Car> list) {
+    public static Car removeCarMenu(List<Car> list) {
 
         if (list.size() == EMPTY_LIST) {
             System.out.println(message.getString("showListMessage") + '\n');
@@ -195,7 +195,7 @@ class CarUtil {
         }
     }
 
-    static String showMainMenu() {
+    public static String showMainMenu() {
 
         System.out.println(message.getString("showMainMenuMsg1"));
         System.out.println(message.getString("showMainMenuMsg2"));
@@ -210,21 +210,21 @@ class CarUtil {
         return input.next();
     }
 
-    static void showBalance(BigDecimal balance) {
+    public static void showBalance(BigDecimal balance) {
 
         System.out.print(
                 message.getString("showBalanceMsg") + " ");
         System.out.printf("%.2f %s", balance, " PLN\n");
     }
 
-    static void showTitle() {
+    public static void showTitle() {
         System.out.println("=========================");
         System.out.println("|  CAR DEALER MANAGER   |");
         System.out.println("=========================");
     }
 
 
-    static String showSortMenuAndReturnChoiceNumber(List<Car> list) {
+    public static String showSortMenuAndReturnChoiceNumber(List<Car> list) {
 
         if (list.size() == EMPTY_LIST) {
             System.out.println(message.getString("showListMessage") + '\n');
@@ -247,7 +247,7 @@ class CarUtil {
         return input.next();
     }
 
-    static String showFilterMenuAndReturnChoice(List<Car> list) {
+    public static String showFilterMenuAndReturnChoice(List<Car> list) {
 
         if (list.size() == EMPTY_LIST) {
             System.out.println(message.getString("showListMessage") + '\n');
@@ -269,7 +269,7 @@ class CarUtil {
         return input.next();
     }
 
-    static String takeMakeToFilter(List<Car> list) {
+    public static String takeMakeToFilter(List<Car> list) {
 
         Set<String> makes = new TreeSet<>();
         for (Car car : list) {
@@ -284,7 +284,7 @@ class CarUtil {
         return input.nextLine();
     }
 
-    static int takeDoorToFilter(List<Car> list) {
+    public static int takeDoorToFilter(List<Car> list) {
 
         Set<Integer> doors = new TreeSet<>();
         for (Car car : list) {
@@ -310,7 +310,7 @@ class CarUtil {
         }
     }
 
-    static String takeColorToFilter(List<Car> list) {
+    public static String takeColorToFilter(List<Car> list) {
 
         Set<String> colors = new TreeSet<>();
         for (Car car : list) {
@@ -325,7 +325,7 @@ class CarUtil {
         return input.nextLine();
     }
 
-    static BigDecimal takePriceToFilter() {
+    public static BigDecimal takePriceToFilter() {
         System.out.println(message.getString("takePriceToFilterMsg1"));
 
         BigDecimal maxPrice;
@@ -343,7 +343,7 @@ class CarUtil {
         }
     }
 
-    static Integer takeYearToFilter(List<Car> list) {
+    public static Integer takeYearToFilter(List<Car> list) {
 
         Set<Integer> years = new TreeSet<>();
         for (Car car : list) {
@@ -371,7 +371,7 @@ class CarUtil {
         }
     }
 
-    static Integer takeMileageToFilter() {
+    public static Integer takeMileageToFilter() {
         System.out.println(message.getString("takeMileageToFilterMsg1"));
 
         Integer maxMileage;
@@ -389,7 +389,7 @@ class CarUtil {
         }
     }
 
-    static boolean isAnotherFilteringRequired() {
+    public static boolean isAnotherFilteringRequired() {
         System.out.println(message.getString("isAnotherFilteringRequiredMsg1"));
 
         while (!input.hasNextInt()) {
@@ -401,12 +401,12 @@ class CarUtil {
 
     }
 
-    static String formatDate(LocalDateTime localTime) {
+    public static String formatDate(LocalDateTime localTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return localTime.format(formatter);
     }
 
-    static void showAccountHistory(List<AccountHistoryObject> accountHistory) {
+    public static void showAccountHistory(List<AccountHistoryObject> accountHistory) {
 
         System.out.println(message.getString("showAccountHistoryMsg1"));
         System.out.println("==================");

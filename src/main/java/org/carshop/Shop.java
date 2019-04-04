@@ -10,7 +10,7 @@ public class Shop {
 
         CarUtil.showTitle();
         CarUtil.changeLanguage();
-        menu.loadFromFile(garage);
+        LoadFromFileUtil.loadFromFile(garage);
         while (!menu.getChoice().equals("9")) {
             menu.executeMainMenu(garage);
         }

@@ -31,22 +31,22 @@ class MainMenu {
                 break;
 
             case "2": //remove a car
-                Car carToRemove = CarUtil.removeCarMenu(garage.carList);
+                Car carToRemove = CarUtil.removeCarMenu(garage.getCarList());
                 if (carToRemove != null) {
                     garage.removeCar(carToRemove);
                 }
                 break;
 
             case "3": //show list
-                CarUtil.showList(garage.carList);
+                CarUtil.showList(garage.getCarList());
                 break;
 
             case "4": //sort list
-                choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.carList);
+                choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.getCarList());
                 if (choice.equals(CarUtil.NO_ELEMENTS_TO_SORT)) {
                     break;
                 }
-                List<Car> sortedList = new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.carList, choice));
+                List<Car> sortedList = new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.getCarList(), choice));
                 CarUtil.showList(sortedList);
                 break;
 
@@ -69,11 +69,11 @@ class MainMenu {
                 break;
 
             case "6": //sort and filter list
-                choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.carList);
+                choice = CarUtil.showSortMenuAndReturnChoiceNumber(garage.getCarList());
                 if (choice.equals(CarUtil.NO_ELEMENTS_TO_SORT)) {
                     break;
                 }
-                List<Car> sortedAndFilteredList = new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.carList, choice));
+                List<Car> sortedAndFilteredList = new ArrayList<>(SortMenu.sortByOneElementAndReturn(garage.getCarList(), choice));
                 CarUtil.showList(sortedAndFilteredList);
 
                 choice = CarUtil.showFilterMenuAndReturnChoice(sortedAndFilteredList);
@@ -101,29 +101,6 @@ class MainMenu {
         }
     }
 
-    void loadFromFile(MyGarage garage) {
 
-        if (CarUtil.isLoadingFromFileChosen()) {
-            try {
-                FileInputStream fInput = new FileInputStream(new File("SavedData.txt"));
-                ObjectInputStream objInput = new ObjectInputStream(fInput);
-
-                garage.addCarList((ArrayList<Car>) objInput.readObject());
-                CarProfit.loadAccountHistory((ArrayList<AccountHistoryObject>) objInput.readObject());
-                CarProfit.loadBalance((BigDecimal) objInput.readObject());
-
-                fInput.close();
-                objInput.close();
-                CarUtil.messageAfterLoading();
-
-            } catch (FileNotFoundException e) {
-                CarUtil.messageFileNotFound();
-            } catch (IOException e) {
-                CarUtil.messageFileNotFound();
-            } catch (ClassNotFoundException e) {
-                CarUtil.messageFileNotFound();
-            }
-        }
-    }
 }
 
